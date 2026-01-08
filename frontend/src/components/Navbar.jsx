@@ -34,7 +34,10 @@ const Navbar = ({ setSearchTerm }) => {
             <nav style={styles.nav}>
                 <div style={styles.logoContainer}>
                     <div style={styles.logo}>
-                        <Link to={isDelivery ? "/delivery" : "/"} style={styles.link}>Foodie</Link>
+                        <Link to={isDelivery ? "/delivery" : "/"} style={styles.link}>
+                            <span style={styles.logoEmoji}>🍔</span>
+                            <span style={styles.logoText}>Foodie</span>
+                        </Link>
                     </div>
                     <div style={styles.location} onClick={openLocationModal} title="Click to change location">
                         <FaMapMarkerAlt style={{ color: '#ff4757', marginRight: '5px' }} />
@@ -120,6 +123,19 @@ const styles = {
     logo: {
         fontSize: '1.5rem',
         fontWeight: 'bold',
+    },
+    logoEmoji: {
+        fontSize: '1.8rem',
+        marginRight: '8px',
+        display: 'inline-block',
+        animation: 'bounce 2s ease-in-out infinite',
+    },
+    logoText: {
+        background: 'linear-gradient(45deg, #ff4757, #ffa502)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        fontWeight: 'bold',
+        fontSize: '1.6rem',
     },
     location: {
         display: 'flex',
