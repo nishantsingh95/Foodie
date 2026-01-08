@@ -14,12 +14,25 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173", // Vite frontend
-        methods: ["GET", "POST"]
+        origin: [
+            "http://localhost:5173",
+            "https://fodieee.netlify.app"
+        ],
+        methods: ["GET", "POST"],
+        credentials: true
     }
 });
 
-app.use(cors());
+
+const corsOptions = {
+    origin: [
+        "http://localhost:5173",
+        "https://fodieee.netlify.app"
+    ],
+    credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Make io accessible to our router
