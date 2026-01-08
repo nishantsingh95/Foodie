@@ -35,7 +35,7 @@ const Navbar = ({ setSearchTerm }) => {
                 <div style={styles.logoContainer}>
                     <div style={styles.logo}>
                         <Link to={isDelivery ? "/delivery" : "/"} style={styles.link}>
-                            <span style={styles.logoEmoji}>🍔</span>
+                            <span style={styles.logoEmoji}>🛵</span>
                             <span style={styles.logoText}>Foodie</span>
                         </Link>
                     </div>
