@@ -30,12 +30,12 @@
 /* Specific Tablet/Mobile fine-tuning */
 @media (max-width: 480px) {
     .home-container {
-        padding: 1rem 0.5rem;
+        padding: 1rem 10px;
     }
 
     .home-food-grid {
-        /* Ensure it doesn't drop to 1 column unless the screen is VERY small (< 320px) */
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        /* Force 2 columns to ensure wrapping looks like premium apps */
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
 }

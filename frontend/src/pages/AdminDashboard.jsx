@@ -191,6 +191,18 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleToggleAvailability = async (food) => {
+        try {
+            const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+            const newStatus = food.available === false ? true : false;
+            await axios.put(`${API_URL}/api/food/${food._id}`, { available: newStatus }, config);
+            toast.success(`${food.name} is now ${newStatus ? 'Available' : 'Unavailable'}`);
+            fetchFoods();
+        } catch (err) {
+            toast.error('Error updating status');
+        }
+    };
+
     if (loading) return <div>Loading...</div>;
     if (!user || user.role !== 'admin') return <AccessDenied />;
 
@@ -323,14 +335,26 @@ const AdminDashboard = () => {
                                     <span style={{ color: '#ff4757' }}>Non-Veg</span>
                                 </label>
 
-                                <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: 'auto', cursor: 'pointer' }}>
+                                <label style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '12px',
+                                    marginLeft: 'auto',
+                                    cursor: 'pointer',
+                                    background: foodForm.available ? 'rgba(144, 238, 144, 0.1)' : 'rgba(255, 71, 87, 0.1)',
+                                    padding: '8px 15px',
+                                    borderRadius: '8px',
+                                    border: `1px solid ${foodForm.available ? 'rgba(144, 238, 144, 0.3)' : 'rgba(255, 71, 87, 0.3)'}`,
+                                    transition: 'all 0.3s'
+                                }}>
                                     <input
                                         type="checkbox"
                                         name="available"
                                         checked={foodForm.available}
                                         onChange={(e) => setFoodForm({ ...foodForm, available: e.target.checked })}
+                                        style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                                     />
-                                    <span style={{ color: foodForm.available ? 'lightgreen' : '#ff4757', fontWeight: '800' }}>
+                                    <span style={{ color: foodForm.available ? 'lightgreen' : '#ff4757', fontWeight: '800', fontSize: '0.9rem' }}>
                                         {foodForm.available ? 'In Stock (Available)' : 'Out of Stock (Unavailable)'}
                                     </span>
                                 </label>
@@ -416,6 +440,13 @@ const AdminDashboard = () => {
                                         <div className="food-footer">
                                             <span className="food-price">₹{food.price}</span>
                                             <div className="food-actions">
+                                                <button
+                                                    onClick={() => handleToggleAvailability(food)}
+                                                    className={`edit-btn ${food.available === false ? 'unavailable-btn' : 'available-btn'}`}
+                                                    style={{ backgroundColor: food.available === false ? '#ff4757' : '#2ed573' }}
+                                                >
+                                                    {food.available === false ? 'Set Available' : 'Set Unavailable'}
+                                                </button>
                                                 <button onClick={() => handleEditFood(food)} className="edit-btn">Edit</button>
                                                 <button onClick={() => handleDeleteFood(food._id)} className="delete-btn">Delete</button>
                                             </div>
