@@ -1,4 +1,4 @@
-```css .food-card {
+.food-card {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
@@ -92,7 +92,6 @@
     gap: 10px;
 }
 
-/* Mobile Responsive Polish */
 @media (max-width: 768px) {
     .food-card-content {
         padding: 0.7rem;
@@ -157,22 +156,4 @@
 
 .food-card-add-btn:hover {
     background-color: #ff6b81;
-    transform: translateY(-1px);
-}
-
-/* Admin Actions */
-.food-card-admin-actions {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-}
-
-.edit-btn {
-    background-color: #1e90ff;
-    flex: 1;
-}
-
-.delete-btn {
-    background-color: #ff4757;
-    flex: 1;
 }
