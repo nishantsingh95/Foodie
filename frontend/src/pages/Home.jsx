@@ -10,6 +10,7 @@ import { FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import API_URL from '../config/api';
 import './Home.css';
+import '../components/AdminFab.css';
 
 const Home = () => {
     const [foods, setFoods] = useState([]);
@@ -144,24 +145,7 @@ const AdminFab = () => {
     return (
         <button
             onClick={() => navigate('/admin')}
-            style={{
-                position: 'fixed',
-                bottom: '30px',
-                right: '30px',
-                width: '60px',
-                height: '60px',
-                borderRadius: '50%',
-                backgroundColor: '#ff4757',
-                color: '#fff',
-                border: 'none',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontSize: '1.5rem',
-                boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
-                cursor: 'pointer',
-                zIndex: 1000,
-            }}
+            className="admin-fab"
             title="Add New Item"
         >
             <FaPlus />

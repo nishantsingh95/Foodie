@@ -117,18 +117,30 @@
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+/* Responsive */
+@media (max-width: 768px) {
     .home-container {
-        padding: 1rem;
+        padding: 1rem 0.5rem;
+    }
+
+    .home-section-title {
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
     }
 
     .home-food-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-food-grid {
         grid-template-columns: 1fr;
-        /* Full width cards on mobile */
+        /* Force single column on very small screens */
     }
 
     .food-item-img {
-        height: 220px;
-        /* Taller images on mobile */
+        height: 200px;
     }
 }
