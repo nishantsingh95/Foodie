@@ -18,11 +18,8 @@ const getFoods = async (req, res) => {
 // @access  Private/Admin
 const getMyFoods = async (req, res) => {
     try {
-        const shop = await Shop.findOne({ user: req.user._id });
-        if (!shop) {
-            return res.status(404).json({ message: 'Shop not found for this user' });
-        }
-        const foods = await Food.find({ restaurant: shop.name });
+        // Find foods explicitly owned by this user
+        const foods = await Food.find({ owner: req.user._id });
         res.json(foods);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -33,9 +30,12 @@ const getMyFoods = async (req, res) => {
 // @route   POST /api/food
 // @access  Private/Admin
 const addFood = async (req, res) => {
-    const { name, description, price, category, image, available, isVeg, rating, restaurant } = req.body;
+    const { name, description, price, category, image, available, isVeg, rating } = req.body;
 
     try {
+        // Securely fetch shop name instead of trusting body
+        const shop = await Shop.findOne({ user: req.user._id });
+
         const food = new Food({
             name,
             description,
@@ -45,7 +45,8 @@ const addFood = async (req, res) => {
             available,
             isVeg,
             rating: rating || 4.5,
-            restaurant: restaurant || 'Foodie Kitchen',
+            restaurant: shop ? shop.name : 'Unknown Shop',
+            owner: req.user._id // Direct stable link to creator
         });
 
         const createdFood = await food.save();
@@ -63,7 +64,12 @@ const deleteFood = async (req, res) => {
         const food = await Food.findById(req.params.id);
 
         if (food) {
-            await food.deleteOne(); // or remove() for older mongoose
+            // Verify ownership
+            if (food.owner.toString() !== req.user._id.toString()) {
+                return res.status(401).json({ message: 'Not authorized to delete this item' });
+            }
+
+            await food.deleteOne();
             res.json({ message: 'Food removed' });
         } else {
             res.status(404).json({ message: 'Food not found' });
@@ -83,6 +89,11 @@ const updateFood = async (req, res) => {
         const food = await Food.findById(req.params.id);
 
         if (food) {
+            // Verify ownership
+            if (food.owner.toString() !== req.user._id.toString()) {
+                return res.status(401).json({ message: 'Not authorized to update this item' });
+            }
+
             food.name = name || food.name;
             food.description = description || food.description;
             food.price = price || food.price;

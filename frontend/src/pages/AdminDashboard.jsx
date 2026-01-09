@@ -140,10 +140,8 @@ const AdminDashboard = () => {
     const handleFoodSubmit = async (e) => {
         e.preventDefault();
 
-        const payload = {
-            ...foodForm,
-            restaurant: shop ? shop.name : 'Unknown Shop'
-        };
+        // Let the backend handle ownership and restaurant metadata securely
+        const payload = { ...foodForm };
 
         try {
             const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
