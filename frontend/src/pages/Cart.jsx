@@ -9,6 +9,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { FaPlus, FaMinus, FaTrash, FaShoppingBag } from 'react-icons/fa';
 import API_URL from '../config/api';
+import './Cart.css';
 
 const Cart = () => {
     const { cartItems, removeFromCart, updateQuantity, clearCart } = useContext(CartContext);
@@ -34,11 +35,9 @@ const Cart = () => {
         setSelectedUpiId(upiId);
 
         if (paymentMethod === 'upi') {
-            // Show UPI payment simulator
             setShowPaymentModal(false);
             setShowUpiSimulator(true);
         } else {
-            // COD - place order directly
             await placeOrder(paymentMethod, upiId);
         }
     };
@@ -81,58 +80,58 @@ const Cart = () => {
     return (
         <>
             <Navbar />
-            <div style={styles.container}>
-                <h1 style={styles.title}>
+            <div className="page-container">
+                <h1 className="cart-header">
                     <FaShoppingBag style={{ marginRight: '10px' }} />
                     Your Cart
                 </h1>
 
                 {cartItems.length === 0 ? (
-                    <div className="glass" style={styles.emptyCart}>
+                    <div className="glass empty-cart-container">
                         <FaShoppingBag size={60} style={{ color: '#555', marginBottom: '1rem' }} />
                         <h2 style={{ color: '#aaa', marginBottom: '0.5rem' }}>Your cart is empty</h2>
-                        <p style={{ color: '#777', marginBottom: '1.5rem' }}>Add some delicious items to get started!</p>
-                        <button onClick={() => navigate('/')} style={styles.shopBtn}>
+                        <p className="empty-cart-text">Add some delicious items to get started!</p>
+                        <button onClick={() => navigate('/')} className="shop-now-btn">
                             Start Shopping
                         </button>
                     </div>
                 ) : (
-                    <div style={styles.cartContent}>
-                        <div style={styles.itemsSection}>
+                    <div className="cart-layout">
+                        <div className="cart-items-section">
                             {cartItems.map((item) => (
-                                <div key={item._id} className="glass" style={styles.cartItem}>
-                                    <img src={item.image} alt={item.name} style={styles.itemImage} />
+                                <div key={item._id} className="glass cart-item-card">
+                                    <img src={item.image} alt={item.name} className="cart-item-image" />
 
-                                    <div style={styles.itemDetails}>
-                                        <h3 style={styles.itemName}>{item.name}</h3>
-                                        <p style={styles.itemPrice}>${item.price}</p>
+                                    <div className="cart-item-details">
+                                        <h3 className="cart-item-name">{item.name}</h3>
+                                        <p className="cart-item-price">${item.price}</p>
                                     </div>
 
-                                    <div style={styles.quantityControl}>
+                                    <div className="qty-control">
                                         <button
                                             onClick={() => updateQuantity(item._id, item.qty - 1)}
-                                            style={styles.qtyBtn}
+                                            className="qty-btn"
                                             disabled={item.qty <= 1}
                                         >
                                             <FaMinus />
                                         </button>
-                                        <span style={styles.qtyDisplay}>{item.qty}</span>
+                                        <span className="qty-value">{item.qty}</span>
                                         <button
                                             onClick={() => updateQuantity(item._id, item.qty + 1)}
-                                            style={styles.qtyBtn}
+                                            className="qty-btn"
                                         >
                                             <FaPlus />
                                         </button>
                                     </div>
 
-                                    <div style={styles.itemTotal}>
-                                        <p style={styles.totalLabel}>Total</p>
-                                        <p style={styles.totalPrice}>${(item.price * item.qty).toFixed(2)}</p>
+                                    <div className="cart-item-total-section">
+                                        <p className="cart-total-label">Total</p>
+                                        <p className="cart-total-price">${(item.price * item.qty).toFixed(2)}</p>
                                     </div>
 
                                     <button
                                         onClick={() => removeFromCart(item._id)}
-                                        style={styles.removeBtn}
+                                        className="remove-btn"
                                         title="Remove item"
                                     >
                                         <FaTrash />
@@ -141,27 +140,27 @@ const Cart = () => {
                             ))}
                         </div>
 
-                        <div className="glass" style={styles.summarySection}>
-                            <h2 style={styles.summaryTitle}>Order Summary</h2>
+                        <div className="glass cart-summary-section">
+                            <h2 className="summary-title">Order Summary</h2>
 
-                            <div style={styles.summaryRow}>
-                                <span style={styles.summaryLabel}>Subtotal ({cartItems.length} items)</span>
-                                <span style={styles.summaryValue}>${totalPrice}</span>
+                            <div className="summary-row">
+                                <span className="summary-label">Subtotal ({cartItems.length} items)</span>
+                                <span className="summary-value">${totalPrice}</span>
                             </div>
 
-                            <div style={styles.summaryRow}>
-                                <span style={styles.summaryLabel}>Delivery Fee</span>
-                                <span style={{ ...styles.summaryValue, color: '#2ed573' }}>FREE</span>
+                            <div className="summary-row">
+                                <span className="summary-label">Delivery Fee</span>
+                                <span className="summary-value" style={{ color: '#2ed573' }}>FREE</span>
                             </div>
 
-                            <div style={styles.divider}></div>
+                            <div className="summary-divider"></div>
 
-                            <div style={styles.summaryRow}>
-                                <span style={styles.totalLabel}>Total</span>
-                                <span style={styles.grandTotal}>${totalPrice}</span>
+                            <div className="summary-row">
+                                <span className="cart-total-label" style={{ fontSize: '1.2rem' }}>Total</span>
+                                <span className="grand-total">${totalPrice}</span>
                             </div>
 
-                            <button onClick={handleCheckoutClick} style={styles.checkoutBtn}>
+                            <button onClick={handleCheckoutClick} className="checkout-btn">
                                 Proceed to Checkout
                             </button>
                         </div>
@@ -185,188 +184,6 @@ const Cart = () => {
             </div>
         </>
     );
-};
-
-const styles = {
-    container: {
-        padding: '2rem',
-        maxWidth: '1200px',
-        margin: '0 auto',
-        minHeight: '80vh',
-    },
-    title: {
-        marginBottom: '2rem',
-        textAlign: 'center',
-        fontSize: '2.5rem',
-        color: '#fff',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    emptyCart: {
-        padding: '4rem 2rem',
-        textAlign: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    },
-    shopBtn: {
-        padding: '12px 30px',
-        backgroundColor: '#ff4757',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '8px',
-        fontSize: '1rem',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-        transition: 'all 0.3s',
-    },
-    cartContent: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 350px',
-        gap: '2rem',
-    },
-    itemsSection: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-    },
-    cartItem: {
-        padding: '1.5rem',
-        display: 'grid',
-        gridTemplateColumns: '100px 1fr auto auto auto',
-        gap: '1.5rem',
-        alignItems: 'center',
-        transition: 'transform 0.2s',
-    },
-    itemImage: {
-        width: '100px',
-        height: '100px',
-        objectFit: 'cover',
-        borderRadius: '10px',
-        border: '2px solid rgba(255,255,255,0.1)',
-    },
-    itemDetails: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.5rem',
-    },
-    itemName: {
-        margin: 0,
-        fontSize: '1.2rem',
-        fontWeight: '600',
-        color: '#fff',
-    },
-    itemPrice: {
-        margin: 0,
-        fontSize: '1rem',
-        color: '#aaa',
-    },
-    quantityControl: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        background: 'rgba(255,255,255,0.05)',
-        borderRadius: '8px',
-        padding: '0.5rem',
-    },
-    qtyBtn: {
-        background: 'rgba(255,255,255,0.1)',
-        border: 'none',
-        color: '#fff',
-        width: '32px',
-        height: '32px',
-        borderRadius: '6px',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'all 0.2s',
-    },
-    qtyDisplay: {
-        minWidth: '30px',
-        textAlign: 'center',
-        fontSize: '1.1rem',
-        fontWeight: 'bold',
-        color: '#fff',
-    },
-    itemTotal: {
-        textAlign: 'right',
-    },
-    totalLabel: {
-        margin: 0,
-        fontSize: '0.85rem',
-        color: '#aaa',
-        marginBottom: '0.25rem',
-    },
-    totalPrice: {
-        margin: 0,
-        fontSize: '1.3rem',
-        fontWeight: 'bold',
-        color: '#ffa502',
-    },
-    removeBtn: {
-        background: 'rgba(255, 71, 87, 0.1)',
-        border: '1px solid rgba(255, 71, 87, 0.3)',
-        color: '#ff4757',
-        width: '40px',
-        height: '40px',
-        borderRadius: '8px',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: 'all 0.2s',
-    },
-    summarySection: {
-        padding: '2rem',
-        height: 'fit-content',
-        position: 'sticky',
-        top: '2rem',
-    },
-    summaryTitle: {
-        margin: '0 0 1.5rem 0',
-        fontSize: '1.5rem',
-        color: '#fff',
-    },
-    summaryRow: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginBottom: '1rem',
-    },
-    summaryLabel: {
-        color: '#aaa',
-        fontSize: '1rem',
-    },
-    summaryValue: {
-        color: '#fff',
-        fontSize: '1rem',
-        fontWeight: '500',
-    },
-    divider: {
-        height: '1px',
-        background: 'rgba(255,255,255,0.1)',
-        margin: '1.5rem 0',
-    },
-    grandTotal: {
-        color: '#ffa502',
-        fontSize: '1.8rem',
-        fontWeight: 'bold',
-    },
-    checkoutBtn: {
-        width: '100%',
-        padding: '15px',
-        backgroundColor: '#ffa502',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '10px',
-        fontSize: '1.1rem',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-        marginTop: '1.5rem',
-        transition: 'all 0.3s',
-        boxShadow: '0 4px 15px rgba(255, 165, 2, 0.3)',
-    },
 };
 
 export default Cart;

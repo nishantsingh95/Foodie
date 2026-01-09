@@ -9,6 +9,7 @@ import AuthContext from '../context/AuthContext';
 import { FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import API_URL from '../config/api';
+import './Home.css';
 
 const Home = () => {
     const [foods, setFoods] = useState([]);
@@ -18,7 +19,7 @@ const Home = () => {
     // Search & Filter States
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('All');
-    const { user, login } = useContext(AuthContext); // Get login from context
+    const { user, login } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const tokenProcessed = React.useRef(false);
@@ -29,21 +30,21 @@ const Home = () => {
         const token = params.get('token');
 
         if (token && !tokenProcessed.current) {
-            tokenProcessed.current = true; // Mark as processed immediately
+            tokenProcessed.current = true;
 
             // Verify token and get user data
             axios.get(`${API_URL}/api/auth/profile`, {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then(res => {
-                    login({ ...res.data, token }); // Log user in
+                    login({ ...res.data, token });
                     toast.success('Login successful via Google!');
                     navigate('/'); // Clean URL
                 })
                 .catch(err => {
                     console.error(err);
                     toast.error('Google Login failed');
-                    tokenProcessed.current = false; // Reset if failed so user can try again
+                    tokenProcessed.current = false;
                 });
         }
     }, [location, login, navigate]);
@@ -91,30 +92,27 @@ const Home = () => {
         setFilteredFoods(result);
     }
 
-
-
     return (
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar setSearchTerm={setSearchTerm} />
 
-            <div className="home-page" style={{ padding: '2rem', flex: 1 }}>
+            <div className="home-container">
                 <CategoryBar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
                 {/* Best Shops Section */}
 
-
-                <h2 style={styles.sectionTitle}>
+                <h2 className="home-section-title" style={{ borderLeft: '4px solid #ff4757', paddingLeft: '10px' }}>
                     {selectedCategory === 'All' ? 'Suggested Items' : selectedCategory}
                 </h2>
 
                 {loading ? (
-                    <p>Loading tasty food...</p>
+                    <p style={{ color: '#aaa', textAlign: 'center' }}>Loading tasty food...</p>
                 ) : (
-                    <div style={styles.foodGrid}>
+                    <div className="home-food-grid">
                         {filteredFoods.length > 0 ? filteredFoods.map((food) => (
                             <FoodCard key={food._id} food={food} />
                         )) : (
-                            <p>No food items found.</p>
+                            <p style={{ gridColumn: 'span 3', textAlign: 'center', color: '#aaa' }}>No food items found.</p>
                         )}
                     </div>
                 )}
@@ -158,37 +156,6 @@ const AdminFab = () => {
             <FaPlus />
         </button>
     );
-};
-
-const styles = {
-    sectionTitle: {
-        marginBottom: '1.5rem',
-        color: '#ffa502',
-        borderLeft: '4px solid #ff4757',
-        paddingLeft: '10px',
-    },
-    shopGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '2rem',
-    },
-    shopCard: {
-        padding: 0,
-        overflow: 'hidden',
-        cursor: 'pointer',
-        transition: 'transform 0.2s',
-        border: '1px solid rgba(255,255,255,0.1)',
-    },
-    shopImage: {
-        width: '100%',
-        height: '160px',
-        objectFit: 'cover',
-    },
-    foodGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '2rem',
-    }
 };
 
 export default Home;

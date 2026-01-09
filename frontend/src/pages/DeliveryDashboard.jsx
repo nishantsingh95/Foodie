@@ -4,10 +4,11 @@ import io from 'socket.io-client';
 import AuthContext from '../context/AuthContext';
 import Navbar from '../components/Navbar';
 import { toast } from 'react-toastify';
-import { FaCheckCircle, FaClock, FaMotorcycle, FaMapMarkerAlt, FaBox, FaPhone } from 'react-icons/fa';
+import { FaCheckCircle, FaClock, FaMotorcycle, FaMapMarkerAlt, FaBoxOpen } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import AccessDenied from '../components/AccessDenied';
 import API_URL from '../config/api';
+import './Delivery.css';
 
 const DeliveryDashboard = () => {
     const { user, loading } = useContext(AuthContext);
@@ -22,12 +23,11 @@ const DeliveryDashboard = () => {
             console.log('🔍 Fetching delivery orders...');
             const config = {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')} `,
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
                 },
             };
-            const res = await axios.get(`${API_URL} /api/orders / delivery`, config);
+            const res = await axios.get(`${API_URL}/api/orders/delivery`, config);
             console.log('📦 Received', res.data.length, 'orders from backend');
-            console.log('📦 Orders:', res.data);
             setOrders(res.data);
         } catch (err) {
             console.error('❌ Error fetching orders:', err);
@@ -43,26 +43,11 @@ const DeliveryDashboard = () => {
                 reconnection: true,
                 reconnectionDelay: 1000,
                 reconnectionAttempts: 5,
-                forceNew: false // Don't create new connection if one exists
+                forceNew: false
             });
-        } else {
-            console.log('♻️ Reusing existing Delivery socket connection');
         }
 
         const socket = socketRef.current;
-
-        // Socket connection logging
-        const handleConnect = () => {
-            console.log('✅ Delivery Socket connected to server');
-        };
-
-        const handleDisconnect = () => {
-            console.log('❌ Delivery Socket disconnected from server');
-        };
-
-        const handleConnectError = (error) => {
-            console.error('🔴 Socket connection error:', error);
-        };
 
         // Listen for order events
         const handleNewOrder = (order) => {
@@ -73,24 +58,17 @@ const DeliveryDashboard = () => {
 
         const handleOrderUpdate = (updatedOrder) => {
             console.log('🔄 Order updated:', updatedOrder);
-            console.log('🔄 Triggering fetchOrders...');
             fetchOrders();
         };
 
-        socket.on('connect', handleConnect);
-        socket.on('disconnect', handleDisconnect);
-        socket.on('connect_error', handleConnectError);
         socket.on('new_order', handleNewOrder);
         socket.on('order_updated', handleOrderUpdate);
 
         return () => {
-            socket.off('connect', handleConnect);
-            socket.off('disconnect', handleDisconnect);
-            socket.off('connect_error', handleConnectError);
             socket.off('new_order', handleNewOrder);
             socket.off('order_updated', handleOrderUpdate);
         };
-    }, []); // Empty dependency array - only run once on mount
+    }, []);
 
     // Separate effect for fetching orders when user changes
     useEffect(() => {
@@ -111,22 +89,21 @@ const DeliveryDashboard = () => {
                     navigator.geolocation.getCurrentPosition(
                         async (position) => {
                             const { latitude, longitude } = position.coords;
-                            console.log(`📍 Current location: ${latitude}, ${longitude} `);
+                            console.log(`📍 Current location: ${latitude}, ${longitude}`);
 
                             // Update location for all active deliveries
                             for (const order of activeDeliveries) {
                                 try {
                                     const config = {
                                         headers: {
-                                            Authorization: `Bearer ${localStorage.getItem('token')} `,
+                                            Authorization: `Bearer ${localStorage.getItem('token')}`,
                                         },
                                     };
                                     await axios.put(
-                                        `${API_URL} /api/tracking / ${order._id}/location`,
+                                        `${API_URL}/api/tracking/${order._id}/location`,
                                         { lat: latitude, lng: longitude },
                                         config
                                     );
-                                    console.log(`✅ Location updated for order ${order._id}`);
                                 } catch (err) {
                                     console.error('❌ Error sharing location:', err);
                                 }
@@ -134,9 +111,6 @@ const DeliveryDashboard = () => {
                         },
                         (error) => {
                             console.error('❌ Geolocation error:', error);
-                            if (error.code === error.PERMISSION_DENIED) {
-                                toast.error('Location permission denied. Please enable location access in your browser settings.');
-                            }
                         },
                         {
                             enableHighAccuracy: true,
@@ -153,15 +127,10 @@ const DeliveryDashboard = () => {
         const activeDeliveries = myOrders.filter(o => ['Driver Assigned', 'Out for Delivery'].includes(o.status));
 
         if (activeDeliveries.length > 0) {
-            console.log(`🚀 Starting location sharing for ${activeDeliveries.length} active deliveries`);
-            // Share location immediately
             shareLocation();
-            // Then every 10 seconds
             locationIntervalRef.current = setInterval(shareLocation, 10000);
         } else {
-            // Clear interval if no active deliveries
             if (locationIntervalRef.current) {
-                console.log('⏹️ Stopping location sharing - no active deliveries');
                 clearInterval(locationIntervalRef.current);
                 locationIntervalRef.current = null;
             }
@@ -202,74 +171,73 @@ const DeliveryDashboard = () => {
     const activeDeliveries = myOrders.filter(o => ['Driver Assigned', 'Out for Delivery', 'Delivered'].includes(o.status));
     const completedHistory = myOrders.filter(o => o.status === 'Completed');
 
-    // Add loading and access checks
     if (loading) return <div style={{ minHeight: '100vh', backgroundColor: '#1e272e', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>;
     if (!user || user.role !== 'delivery') return <AccessDenied />;
 
     return (
         <div style={{ minHeight: '100vh', backgroundColor: '#1e272e', color: '#fff', paddingBottom: '2rem' }}>
             <Navbar />
-            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
+            <div className="delivery-dashboard">
 
-                <div style={styles.welcomeBanner}>
-                    <div>
-                        <h1 style={{ margin: 0, fontSize: '2rem' }}>Welcome, {user?.name}! 👋</h1>
-                        <p style={{ color: '#ccc', marginTop: '5px' }}>Drive safe and earn more!</p>
+                <div className="welcome-banner">
+                    <div className="welcome-text">
+                        <h1>Welcome, {user?.name}! 👋</h1>
+                        <p>Drive safe and earn more!</p>
                         {activeDeliveries.length > 0 && (
-                            <div style={styles.locationSharingBadge}>
+                            <div className="location-sharing-badge">
                                 <span className="pulse" style={{ width: '8px', height: '8px', background: '#2ed573', borderRadius: '50%', display: 'inline-block', marginRight: '8px' }}></span>
                                 Location sharing active for {activeDeliveries.length} {activeDeliveries.length === 1 ? 'delivery' : 'deliveries'}
                             </div>
                         )}
                     </div>
-                    <div style={styles.statCard}>
+                    <div className="stat-card">
                         <FaMotorcycle size={24} color="#ffa502" />
                         <div>
-                            <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{activeDeliveries.length}</span>
-                            <span style={{ display: 'block', fontSize: '0.8rem', color: '#aaa' }}>Active Jobs</span>
+                            <span className="stat-number">{activeDeliveries.length}</span>
+                            <span className="stat-label">Active Jobs</span>
                         </div>
                     </div>
                 </div>
 
-                <div style={styles.tabs}>
+                <div className="dashboard-tabs">
                     <button
-                        style={activeTab === 'available' ? styles.activeTab : styles.tab}
+                        className={`tab-btn ${activeTab === 'available' ? 'active' : ''}`}
                         onClick={() => setActiveTab('available')}
                     >
                         Available Orders ({availableOrders.length})
                     </button>
                     <button
-                        style={activeTab === 'my_orders' ? styles.activeTab : styles.tab}
+                        className={`tab-btn ${activeTab === 'my_orders' ? 'active' : ''}`}
                         onClick={() => setActiveTab('my_orders')}
                     >
                         My Deliveries ({activeDeliveries.length})
                     </button>
                 </div>
 
-                <div style={styles.contentArea}>
+                <div className="content-area">
                     {activeTab === 'available' && (
                         <div>
-                            <h2 style={styles.sectionTitle}><FaMapMarkerAlt /> Available Nearby</h2>
+                            <h2 className="delivery-section-title"><FaMapMarkerAlt /> Available Nearby</h2>
                             {availableOrders.length === 0 ? (
                                 <p style={{ color: '#777', fontStyle: 'italic' }}>No orders ready for pickup right now.</p>
                             ) : (
-                                <div style={styles.grid}>
+                                <div className="delivery-grid">
                                     {availableOrders.map(order => (
-                                        <div key={order._id} style={styles.card}>
-                                            <div style={styles.cardHeader}>
-                                                <span style={styles.orderId}>#{order._id.slice(-6)}</span>
-                                                <span style={styles.price}>${order.totalPrice}</span>
+                                        <div key={order._id} className="delivery-card">
+                                            <div className="card-header">
+                                                <span className="order-id">#{order._id.slice(-6)}</span>
+                                                <span className="order-price">${order.totalPrice}</span>
                                             </div>
-                                            <div style={styles.cardBody}>
-                                                <p><strong>Pickup:</strong> {order.restaurant || 'Foodie Kitchen'}</p>
-                                                <p><strong>Dropoff:</strong> {order.deliveryLocation?.address || order.user?.address || 'Address not provided'}</p>
-                                                <p style={{ color: '#2ed573', fontSize: '0.9rem', marginTop: '10px', fontWeight: 'bold' }}>
-                                                    <FaCheckCircle style={{ marginRight: '5px' }} /> Ready for Pickup
+                                            <div className="card-body">
+                                                <p><span className="card-label">Pickup:</span> {order.restaurant || 'Foodie Kitchen'}</p>
+                                                <p><span className="card-label">Dropoff:</span> {order.deliveryLocation?.address || order.user?.address || 'Address not provided'}</p>
+                                                <p style={{ color: '#2ed573', marginTop: '10px', fontWeight: 'bold', flexDirection: 'row', alignItems: 'center', gap: '5px' }}>
+                                                    <FaCheckCircle /> Ready for Pickup
                                                 </p>
                                             </div>
                                             <button
                                                 onClick={() => updateStatus(order._id, 'Driver Assigned')}
-                                                style={styles.acceptBtn}
+                                                className="accept-btn"
                                             >
                                                 Accept Order
                                             </button>
@@ -282,41 +250,41 @@ const DeliveryDashboard = () => {
 
                     {activeTab === 'my_orders' && (
                         <div>
-                            <h2 style={styles.sectionTitle}><FaBoxOpen /> Active Jobs</h2>
+                            <h2 className="delivery-section-title"><FaBoxOpen /> Active Jobs</h2>
                             {activeDeliveries.length === 0 && <p style={{ color: '#777', marginBottom: '2rem' }}>No active jobs.</p>}
-                            <div style={styles.grid}>
+                            <div className="delivery-grid">
                                 {activeDeliveries.map(order => (
-                                    <div key={order._id} style={{ ...styles.card, borderLeft: getBorderColor(order.status) }}>
-                                        <div style={styles.cardHeader}>
-                                            <span style={styles.orderId}>#{order._id.slice(-6)}</span>
+                                    <div key={order._id} className="delivery-card" style={{ borderLeft: `4px solid ${getStatusColor(order.status)}` }}>
+                                        <div className="card-header">
+                                            <span className="order-id">#{order._id.slice(-6)}</span>
                                             <span style={{ color: getStatusColor(order.status), fontWeight: 'bold' }}>
                                                 {order.status === 'Driver Assigned' ? 'Waiting Owner' : order.status}
                                             </span>
                                         </div>
-                                        <div style={styles.cardBody}>
-                                            <p><strong>Customer:</strong> {order.user?.name}</p>
-                                            <p><strong>Address:</strong> {order.deliveryLocation?.address || order.user?.address || 'Address not provided'}</p>
+                                        <div className="card-body">
+                                            <p><span className="card-label">Customer:</span> {order.user?.name}</p>
+                                            <p><span className="card-label">Address:</span> {order.deliveryLocation?.address || order.user?.address || 'Address not provided'}</p>
                                         </div>
 
                                         {/* Logic for Buttons based on flow */}
                                         <div style={{ marginTop: '15px' }}>
                                             {order.status === 'Driver Assigned' && (
-                                                <div style={styles.waitingBox}>
+                                                <div className="waiting-box">
                                                     <FaClock /> Waiting for Owner to Dispatch...
                                                 </div>
                                             )}
 
                                             {order.status === 'Out for Delivery' && (
-                                                <div style={{ display: 'flex', gap: '10px' }}>
+                                                <div className="action-buttons">
                                                     <button
                                                         onClick={() => navigate(`/track/${order._id}`)}
-                                                        style={styles.trackBtn}
+                                                        className="track-btn"
                                                     >
                                                         View Map
                                                     </button>
                                                     <button
                                                         onClick={() => updateStatus(order._id, 'Delivered')}
-                                                        style={styles.completeBtn}
+                                                        className="complete-btn"
                                                     >
                                                         Mark Delivered
                                                     </button>
@@ -326,7 +294,8 @@ const DeliveryDashboard = () => {
                                             {order.status === 'Delivered' && (
                                                 <button
                                                     onClick={() => updateStatus(order._id, 'Completed')}
-                                                    style={{ ...styles.completeBtn, backgroundColor: '#70a1ff' }}
+                                                    className="complete-btn"
+                                                    style={{ width: '100%', marginTop: '10px', backgroundColor: '#70a1ff' }}
                                                 >
                                                     Finish & Complete Job
                                                 </button>
@@ -336,15 +305,15 @@ const DeliveryDashboard = () => {
                                 ))}
                             </div>
 
-                            {/* Completed History Section (Optional, showing last few) */}
+                            {/* Completed History Section */}
                             {completedHistory.length > 0 && (
                                 <>
-                                    <h2 style={{ ...styles.sectionTitle, marginTop: '3rem' }}><FaCheckCircle /> Completed Jobs (Today)</h2>
-                                    <div style={styles.grid}>
+                                    <h2 className="delivery-section-title" style={{ marginTop: '3rem' }}><FaCheckCircle /> Completed Jobs (Today)</h2>
+                                    <div className="delivery-grid">
                                         {completedHistory.slice(0, 5).map(order => (
-                                            <div key={order._id} style={{ ...styles.card, opacity: 0.6 }}>
-                                                <div style={styles.cardHeader}>
-                                                    <span style={styles.orderId}>#{order._id.slice(-6)}</span>
+                                            <div key={order._id} className="delivery-card" style={{ opacity: 0.6 }}>
+                                                <div className="card-header">
+                                                    <span className="order-id">#{order._id.slice(-6)}</span>
                                                     <span style={{ color: '#2ed573' }}>Completed</span>
                                                 </div>
                                                 <p style={{ fontSize: '0.8rem', color: '#aaa' }}>
@@ -369,150 +338,6 @@ const getStatusColor = (status) => {
         case 'Out for Delivery': return '#1e90ff';
         case 'Delivered': return '#2ed573';
         default: return '#fff';
-    }
-};
-
-const getBorderColor = (status) => {
-    return `4px solid ${getStatusColor(status)}`;
-}
-
-const styles = {
-    // ... (keeping mostly same styles, updated waitingBox)
-    welcomeBanner: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '2rem',
-        background: 'linear-gradient(to right, #2f3542, #3a4b5c)',
-        borderRadius: '15px',
-        marginBottom: '2rem',
-        border: '1px solid rgba(255,255,255,0.05)',
-    },
-    statCard: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '15px',
-        background: 'rgba(0,0,0,0.2)',
-        padding: '10px 20px',
-        borderRadius: '10px',
-    },
-    tabs: {
-        display: 'flex',
-        gap: '20px',
-        marginBottom: '2rem',
-        borderBottom: '1px solid #444',
-        paddingBottom: '10px',
-    },
-    tab: {
-        background: 'none',
-        border: 'none',
-        color: '#aaa',
-        fontSize: '1.1rem',
-        cursor: 'pointer',
-        padding: '10px',
-        transition: 'color 0.2s',
-    },
-    activeTab: {
-        background: 'none',
-        border: 'none',
-        color: '#ffa502',
-        fontSize: '1.1rem',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-        padding: '10px',
-        borderBottom: '2px solid #ffa502',
-    },
-    sectionTitle: {
-        color: '#fff',
-        marginBottom: '1.5rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '10px',
-        fontSize: '1.3rem',
-    },
-    grid: {
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-        gap: '1.5rem',
-    },
-    card: {
-        backgroundColor: 'rgba(255,255,255,0.05)',
-        borderRadius: '12px',
-        padding: '1.5rem',
-        border: '1px solid rgba(255,255,255,0.05)',
-        transition: 'transform 0.2s, box-shadow 0.2s',
-    },
-    cardHeader: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginBottom: '1rem',
-    },
-    orderId: {
-        fontWeight: 'bold',
-        color: '#ccc',
-    },
-    price: {
-        color: '#ffa502',
-        fontWeight: 'bold',
-    },
-    cardBody: {
-        color: '#ddd',
-        fontSize: '0.95rem',
-    },
-    acceptBtn: {
-        width: '100%',
-        marginTop: '1.5rem',
-        padding: '12px',
-        backgroundColor: '#ffa502',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '8px',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-        fontSize: '1rem',
-    },
-    trackBtn: {
-        flex: 1,
-        padding: '10px',
-        backgroundColor: '#1e90ff',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '8px',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-    },
-    completeBtn: {
-        flex: 1,
-        padding: '10px',
-        backgroundColor: '#2ed573',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '8px',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-    },
-    waitingBox: {
-        padding: '10px',
-        backgroundColor: 'rgba(255, 165, 2, 0.1)',
-        border: '1px dashed #ffa502',
-        color: '#ffa502',
-        borderRadius: '8px',
-        textAlign: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: '8px',
-    },
-    locationSharingBadge: {
-        marginTop: '10px',
-        padding: '8px 12px',
-        background: 'rgba(46, 213, 115, 0.1)',
-        border: '1px solid rgba(46, 213, 115, 0.3)',
-        borderRadius: '20px',
-        color: '#2ed573',
-        fontSize: '0.85rem',
-        display: 'inline-flex',
-        alignItems: 'center',
     }
 };
 

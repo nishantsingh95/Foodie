@@ -31,4 +31,42 @@ button {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
+  border-radius: 12px;
+}
+
+/* Global Responsive Utilities */
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Common Container for consistency */
+.page-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
 }
