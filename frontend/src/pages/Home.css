@@ -2,14 +2,14 @@
 
 .home-container {
     padding: 2rem var(--container-padding);
-    max-width: 1500px;
+    max-width: 1400px;
     margin: 0 auto;
     min-height: 100vh;
 }
 
 .home-section-title {
     margin: 1.5rem 0 2rem 0;
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-size: clamp(1.5rem, 5vw, 2.22rem);
     color: #fff;
     border-left: 6px solid #ff4757;
     padding-left: 20px;
@@ -18,56 +18,57 @@
 }
 
 /* 
-   TRULY FLEXIBLE GRID 
-   - auto-fit ensures items stretch to fill the row perfectly.
-   - minmax(260px, 1fr) ensures cards wrap when there's less than 260px space.
-   - Using 100% width on the container to prevent any overflow issues.
+   TRULY FLEXIBLE & RESPONSIVE GRID
+   - minmax(clamp(160px, 20vw, 280px), 1fr) 
+     This ensures the cards shrink as the viewport shrinks, 
+     fitting as many columns as possible before wrapping.
 */
 .home-food-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    /* This makes the "flexible" magic happen: cards downsize before they wrap */
+    grid-template-columns: repeat(auto-fill, minmax(clamp(160px, 22vw, 300px), 1fr));
+    gap: clamp(12px, 3vw, 2.5rem);
     width: 100%;
     align-items: stretch;
 }
 
-/* Tablet / Large Mobile (e.g. iPad) */
+/* Tablet / Large Mobile */
 @media (max-width: 1024px) {
     .home-food-grid {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1.5rem;
     }
 }
 
-/* Smart Mobile Wrapping (Standard Phones) */
+/* Smart Mobile Wrapping */
 @media (max-width: 768px) {
     .home-container {
         padding: 1rem 15px;
     }
 
     .home-section-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         margin: 1rem 0;
     }
 
     .home-food-grid {
-        /* On mobile, we force 2 columns for the "Marketplace" feel */
+        /* Force 2 columns for a high-end food delivery app feel */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+/* Ultra-Compact Mobile */
+@media (max-width: 480px) {
+    .home-food-grid {
+        /* Keep 2 columns but make them smaller */
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
 }
 
-/* Ultra-Compact Mobile */
-@media (max-width: 400px) {
-    .home-food-grid {
-        /* Allow cards to be slightly smaller on tiny phones before wrapping to 1-col */
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 8px;
-    }
-}
-
-/* Absolute single column for watches/tiny screens */
-@media (max-width: 320px) {
+/* Small Device Fallback */
+@media (max-width: 350px) {
     .home-food-grid {
         grid-template-columns: 1fr;
     }
