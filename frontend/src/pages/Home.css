@@ -34,38 +34,35 @@
     }
 }
 
-/* ================= MOBILE SLIDER ================= */
+/* ================= MOBILE GRID (2 COLUMNS) ================= */
 
 @media (max-width: 768px) {
 
     .home-container {
-        padding: 1rem 12px;
+        padding: 1rem 8px;
+        /* Tighter padding for 2 cols */
     }
 
     .home-section-title {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         margin: 0.8rem 0;
+        padding-left: 15px;
     }
 
-    /* TURN GRID INTO HORIZONTAL SCROLLER */
     .home-food-grid {
-        display: flex;
-        gap: 10px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 12px;
-        -webkit-overflow-scrolling: touch;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* Forced 2 columns */
+        gap: 8px;
+        /* Tighter gap for small screens */
+        width: 100%;
+        overflow-x: visible;
+        padding-bottom: 0;
     }
 
-    .home-food-grid::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* EACH FOOD CARD - MODIFIED TO BE SMALLER */
     .home-food-grid>* {
-        min-width: 65%;
-        flex-shrink: 0;
-        scroll-snap-align: start;
+        min-width: 0;
+        width: 100%;
     }
 }
 
@@ -81,10 +78,7 @@
 
 @media (max-width: 320px) {
     .home-food-grid {
-        flex-direction: column;
-    }
-
-    .home-food-grid>* {
-        min-width: 100%;
+        grid-template-columns: 1fr;
+        /* Single column only on tiny devices */
     }
 }
