@@ -43,12 +43,17 @@ const foodRoutes = require('./routes/foodRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const shopRoutes = require('./routes/shopRoutes');
 const trackingRoutes = require('./routes/trackingRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+const path = require('path');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/food', foodRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/shop', shopRoutes);
 app.use('/api/tracking', trackingRoutes);
+app.use('/api/upload', uploadRoutes);
+
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.get('/', (req, res) => {
     res.send('API is running...');

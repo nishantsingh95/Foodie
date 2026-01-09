@@ -28,6 +28,32 @@ const AdminDashboard = () => {
     const [editFoodId, setEditFoodId] = useState(null);
     const [showAddFood, setShowAddFood] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [uploading, setUploading] = useState(false);
+
+    const uploadFileHandler = async (e) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('image', file);
+        setUploading(true);
+
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            };
+
+            const { data } = await axios.post(`${API_URL}/api/upload`, formData, config);
+
+            setFoodForm({ ...foodForm, image: data.image });
+            setUploading(false);
+            toast.success('Image uploaded successfully');
+        } catch (error) {
+            console.error(error);
+            setUploading(false);
+            toast.error('Image upload failed');
+        }
+    };
 
     const [categories, setCategories] = useState([
         "Biryani", "Pizza", "Burgers", "North Indian", "South Indian",
@@ -250,7 +276,38 @@ const AdminDashboard = () => {
                             </datalist>
 
                             <input type="number" name="price" placeholder="Price" value={foodForm.price} onChange={handleFoodChange} required className="admin-input" />
-                            <input type="text" name="image" placeholder="Image URL" value={foodForm.image} onChange={handleFoodChange} required className="admin-input" />
+                            <div className="admin-input-group" style={{ marginBottom: '1rem' }}>
+                                <label style={{ color: '#ccc', display: 'block', marginBottom: '5px' }}>Food Image</label>
+                                <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                                    <input
+                                        type="text"
+                                        name="image"
+                                        placeholder="Enter Image URL"
+                                        value={foodForm.image}
+                                        onChange={handleFoodChange}
+                                        className="admin-input"
+                                        style={{ flex: 1 }}
+                                    />
+                                    <div style={{ position: 'relative', overflow: 'hidden', display: 'inline-block' }}>
+                                        <button type="button" className="admin-action-btn" style={{ padding: '12px', background: '#444' }}>
+                                            Upload
+                                        </button>
+                                        <input
+                                            type="file"
+                                            onChange={uploadFileHandler}
+                                            style={{
+                                                fontSize: '100px',
+                                                position: 'absolute',
+                                                left: 0,
+                                                top: 0,
+                                                opacity: 0,
+                                                cursor: 'pointer'
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                                {uploading && <p style={{ color: '#ffa502', fontSize: '0.9rem' }}>Uploading image...</p>}
+                            </div>
 
                             <div className="admin-input" style={{ display: 'flex', alignItems: 'center', gap: '20px', color: '#ccc' }}>
                                 <label style={{ fontWeight: 'bold' }}>Type:</label>
