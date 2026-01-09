@@ -163,8 +163,9 @@
 /* ADMIN ACTIONS */
 .food-card-admin-actions {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .food-card-admin-actions .delete-btn {
