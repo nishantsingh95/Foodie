@@ -81,7 +81,7 @@
 }
 
 /* --- Utility Icons (Cart, User) --- */
-.navbar-mobile-utility {
+.navbar-utility {
     grid-area: utility;
     display: flex;
     align-items: center;
@@ -276,8 +276,9 @@
         display: none;
     }
 
-    .navbar-mobile-utility {
-        display: none;
+    .navbar-utility {
+        display: flex;
+        order: 3;
     }
 
     .navbar-collapse {

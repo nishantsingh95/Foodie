@@ -55,7 +55,7 @@ const Navbar = ({ setSearchTerm }) => {
                         </div>
                     </div>
 
-                    <div className="navbar-mobile-utility">
+                    <div className="navbar-utility">
                         {(!user || (user.role !== 'admin' && user.role !== 'delivery')) && (
                             <Link to="/cart" className="utility-icon cart-link" onClick={closeMobileMenu}>
                                 <FaShoppingCart />
