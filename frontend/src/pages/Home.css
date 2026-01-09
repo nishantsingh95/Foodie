@@ -121,55 +121,33 @@
 @media (max-width: 768px) {
     .home-container {
         padding: 1rem;
-        /* Aligned with Navbar */
     }
 
     .home-section-title {
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-        padding-left: 10px !important;
-        /* Force padding */
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
     }
 
-    /* Tablet / Large Phone: Try to fit more, but ensure at least 2 cols */
-    .home-food-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 1rem;
-    }
-}
-
-@media (max-width: 600px) {
-
-    /* Standard Mobile: Force 2 Columns for density */
     .home-food-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        /* Tighter gap */
-        min-width: 0;
-        /* Safety */
-        overflow: hidden;
-    }
-
-    .home-food-grid>* {
-        min-width: 0;
-        /* Ensure items can shrink */
-    }
-
-    .home-container {
-        padding: 1rem;
-        /* Consistent 1rem */
+        /* Force 2 columns */
+        gap: 12px;
     }
 }
 
-@media (max-width: 330px) {
-
-    /* VERY Small Screens (e.g. Galaxy Fold folded): 1 Column */
+@media (max-width: 480px) {
     .home-food-grid {
-        grid-template-columns: 1fr;
+        gap: 8px;
+        /* Tighter gap for small phones */
     }
 
     .home-container {
         padding: 0.8rem;
-        /* Slightly less for very small screens */
+    }
+}
+
+@media (max-width: 320px) {
+    .home-food-grid {
+        gap: 5px;
     }
 }
