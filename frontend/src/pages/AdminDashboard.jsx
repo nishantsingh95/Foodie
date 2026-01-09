@@ -23,7 +23,7 @@ const AdminDashboard = () => {
 
     // Food State
     const [foodForm, setFoodForm] = useState({
-        name: '', description: '', price: '', category: '', image: '', isVeg: true, rating: 4.5
+        name: '', description: '', price: '', category: '', image: '', isVeg: true, rating: 4.5, available: true
     });
     const [editFoodId, setEditFoodId] = useState(null);
     const [showAddFood, setShowAddFood] = useState(true);
@@ -78,7 +78,8 @@ const AdminDashboard = () => {
             setFoodForm({
                 name: food.name, description: food.description, price: food.price,
                 category: food.category,
-                image: food.image, isVeg: food.isVeg, rating: food.rating
+                image: food.image, isVeg: food.isVeg, rating: food.rating,
+                available: food.available !== undefined ? food.available : true
             });
             setShowAddFood(true);
             window.scrollTo({ top: 400, behavior: 'smooth' });
@@ -156,7 +157,7 @@ const AdminDashboard = () => {
             }
 
             setFoodForm({
-                name: '', description: '', price: '', category: '', image: '', isVeg: true, rating: 4.5
+                name: '', description: '', price: '', category: '', image: '', isVeg: true, rating: 4.5, available: true
             });
             fetchFoods();
         } catch (err) {
@@ -169,7 +170,8 @@ const AdminDashboard = () => {
         setFoodForm({
             name: food.name, description: food.description, price: food.price,
             category: food.category,
-            image: food.image, isVeg: food.isVeg, rating: food.rating
+            image: food.image, isVeg: food.isVeg, rating: food.rating,
+            available: food.available !== undefined ? food.available : true
         });
 
         setShowAddFood(true);
@@ -320,6 +322,18 @@ const AdminDashboard = () => {
                                     <input type="radio" name="isVeg" value="false" checked={foodForm.isVeg === false} onChange={handleFoodChange} />
                                     <span style={{ color: '#ff4757' }}>Non-Veg</span>
                                 </label>
+
+                                <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: 'auto', cursor: 'pointer' }}>
+                                    <input
+                                        type="checkbox"
+                                        name="available"
+                                        checked={foodForm.available}
+                                        onChange={(e) => setFoodForm({ ...foodForm, available: e.target.checked })}
+                                    />
+                                    <span style={{ color: foodForm.available ? 'lightgreen' : '#ff4757', fontWeight: '800' }}>
+                                        {foodForm.available ? 'In Stock (Available)' : 'Out of Stock (Unavailable)'}
+                                    </span>
+                                </label>
                             </div>
 
                             {/* Star Rating Input */}
@@ -376,7 +390,19 @@ const AdminDashboard = () => {
                                         <img src={food.image} alt={food.name} className="food-card-img" />
                                         <div className="food-card-header">
                                             <h3 className="food-name">{food.name}</h3>
-                                            {food.isVeg ? <span style={{ color: 'green' }}>● Veg</span> : <span style={{ color: 'red' }}>● Non-Veg</span>}
+                                            <div style={{ display: 'flex', gap: '10px' }}>
+                                                {food.isVeg ? <span style={{ color: 'green' }}>● Veg</span> : <span style={{ color: 'red' }}>● Non-Veg</span>}
+                                                <span style={{
+                                                    fontSize: '0.75rem',
+                                                    padding: '2px 8px',
+                                                    borderRadius: '10px',
+                                                    backgroundColor: food.available ? 'rgba(144, 238, 144, 0.2)' : 'rgba(255, 71, 87, 0.2)',
+                                                    color: food.available ? 'lightgreen' : '#ff4757',
+                                                    border: `1px solid ${food.available ? 'lightgreen' : '#ff4757'}`
+                                                }}>
+                                                    {food.available ? 'Available' : 'Unavailable'}
+                                                </span>
+                                            </div>
                                         </div>
                                         <p className="food-desc">{food.description}</p>
 

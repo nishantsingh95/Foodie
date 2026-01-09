@@ -50,10 +50,19 @@ const FoodCard = ({ food }) => {
         }
     };
 
+    const isAvailable = food.available !== false; // Default to true if undefined
+
     return (
-        <div className="glass food-card">
+        <div className={`glass food-card ${!isAvailable ? 'unavailable' : ''}`}>
             <div className="food-card-image-container">
                 <img src={food.image} alt={food.name} className="food-card-image" />
+
+                {!isAvailable && (
+                    <div className="unavailable-overlay">
+                        <span>OUT OF STOCK</span>
+                    </div>
+                )}
+
                 <div style={styles.typeTag}>
                     {food.isVeg ? (
                         <div style={{ ...styles.dot, border: '1px solid green' }} title="Veg">
@@ -96,13 +105,29 @@ const FoodCard = ({ food }) => {
                         </div>
                     ) : (
                         <>
-                            <div className="food-card-qty-control">
-                                <button onClick={() => setQty(q => Math.max(1, q - 1))} className="food-card-qty-btn"><FaMinus /></button>
+                            <div className="food-card-qty-control" style={{ opacity: !isAvailable ? 0.5 : 1 }}>
+                                <button
+                                    onClick={() => setQty(q => Math.max(1, q - 1))}
+                                    className="food-card-qty-btn"
+                                    disabled={!isAvailable}
+                                >
+                                    <FaMinus />
+                                </button>
                                 <span style={{ margin: '0 10px', minWidth: '20px', textAlign: 'center' }}>{qty}</span>
-                                <button onClick={() => setQty(q => q + 1)} className="food-card-qty-btn"><FaPlus /></button>
+                                <button
+                                    onClick={() => setQty(q => q + 1)}
+                                    className="food-card-qty-btn"
+                                    disabled={!isAvailable}
+                                >
+                                    <FaPlus />
+                                </button>
                             </div>
-                            <button onClick={handleAddToCart} className="food-card-add-btn">
-                                Add
+                            <button
+                                onClick={handleAddToCart}
+                                className={`food-card-add-btn ${!isAvailable ? 'disabled' : ''}`}
+                                disabled={!isAvailable}
+                            >
+                                {isAvailable ? 'Add' : 'Off'}
                             </button>
                         </>
                     )}
