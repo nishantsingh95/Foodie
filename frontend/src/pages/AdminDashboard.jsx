@@ -26,7 +26,7 @@ const AdminDashboard = () => {
         name: '', description: '', price: '', category: '', image: '', isVeg: true, rating: 4.5
     });
     const [editFoodId, setEditFoodId] = useState(null);
-    const [showAddFood, setShowAddFood] = useState(false);
+    const [showAddFood, setShowAddFood] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
 
     const [categories, setCategories] = useState([
@@ -195,6 +195,8 @@ const AdminDashboard = () => {
                         {showAddFood ? <FaMinus /> : <FaPlus />}
                     </button>
                 )}
+
+
 
                 {/* --- Shop Registration Section --- */}
                 {(!shop || isEditingShop) && !searchTerm && (

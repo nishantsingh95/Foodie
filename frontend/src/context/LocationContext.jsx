@@ -26,10 +26,15 @@ export const LocationProvider = ({ children }) => {
                         const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1`);
 
                         const address = res.data.address;
-                        // Prefer exact city/town/village, fallback to state/country
-                        const loc = address.city || address.town || address.village || address.state || res.data.display_name.split(',')[0];
+                        // Construct a more detailed address (Road, Area, City)
+                        const detailedAddress = [
+                            address.road,
+                            address.suburb || address.neighbourhood,
+                            address.city || address.town || address.village,
+                            address.state
+                        ].filter(Boolean).join(', ');
 
-                        setLocation(loc);
+                        setLocation(detailedAddress || res.data.display_name);
                     } catch (error) {
                         console.error("Reverse geocoding failed", error);
                         setLocation(`${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
