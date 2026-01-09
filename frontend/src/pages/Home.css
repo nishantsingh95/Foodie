@@ -1,7 +1,5 @@
 /* Home Page Styles */
-.home-page {
-    /* Styles are mostly global or component based */
-}
+/* .home-page {} Removed empty rule */
 
 .home-container {
     padding: 2rem;
@@ -117,6 +115,7 @@
 }
 
 /* Responsive */
+/* Responsive */
 @media (max-width: 768px) {
     .home-container {
         padding: 1rem 0.5rem;
@@ -127,20 +126,27 @@
     }
 
     .home-food-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1rem;
     }
 }
 
 @media (max-width: 480px) {
     .home-food-grid {
-        grid-template-columns: 1fr 1fr;
-        /* 2 columns for better density */
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns for better density on standard mobile */
         gap: 10px;
         /* Smaller gap */
     }
 
     .home-container {
         padding: 1rem 0.5rem;
+    }
+}
+
+@media (max-width: 350px) {
+    .home-food-grid {
+        grid-template-columns: 1fr;
+        /* 1 column for very small screens to prevent squishing */
     }
 }
