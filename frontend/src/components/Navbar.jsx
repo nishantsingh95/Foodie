@@ -40,7 +40,7 @@ const Navbar = ({ setSearchTerm }) => {
             <nav className="navbar">
                 <div className="navbar-container">
                     <div className="navbar-logo-container">
-                        <Link to={isDelivery ? "/delivery" : "/"} className="navbar-link" onClick={closeMobileMenu}>
+                        <Link to={isDelivery ? "/delivery" : "/"} className="navbar-link-logo" onClick={closeMobileMenu}>
                             <span className="navbar-logo-emoji">🍔</span>
                             <span className="navbar-logo-text">Foodie</span>
                         </Link>
@@ -50,79 +50,93 @@ const Navbar = ({ setSearchTerm }) => {
                         </div>
                     </div>
 
-                    <div className="navbar-utility">
-                        {(!user || (user.role !== 'admin' && user.role !== 'delivery')) && (
-                            <Link to="/cart" className="utility-icon cart-link" onClick={closeMobileMenu}>
-                                <FaShoppingCart />
-                                {cartItems.length > 0 && (
-                                    <span className="navbar-cart-badge">{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>
-                                )}
-                            </Link>
-                        )}
-                        {user ? (
-                            <div className="utility-icon profile-icon" onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}>
-                                <FaUser />
-                            </div>
-                        ) : (
-                            <Link to="/login" className="utility-icon login-icon" onClick={closeMobileMenu}>
-                                <FaUser />
-                            </Link>
-                        )}
-                    </div>
-
-                    <div className="navbar-search-container">
-                        <div className="navbar-mobile-toggle" onClick={toggleMobileMenu}>
-                            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+                    <div className="navbar-main-actions">
+                        <div className="navbar-search-container">
+                            {!isDelivery && (
+                                <div className="navbar-search">
+                                    <FaSearch className="search-icon" />
+                                    <input
+                                        type="text"
+                                        placeholder="Search for food, etc..."
+                                        className="navbar-search-input"
+                                        value={searchInput}
+                                        onChange={handleSearch}
+                                    />
+                                </div>
+                            )}
                         </div>
-                        {!isDelivery && (
-                            <div className="navbar-search">
-                                <FaSearch className="search-icon" />
-                                <input
-                                    type="text"
-                                    placeholder="Search for restaurants, items..."
-                                    className="navbar-search-input"
-                                    value={searchInput}
-                                    onChange={handleSearch}
-                                />
-                            </div>
-                        )}
-                    </div>
 
-                    <div className={`navbar-collapse ${isMobileMenuOpen ? 'active' : ''}`}>
-                        <div className="navbar-links">
-                            {!isDelivery && <Link to="/" className="navbar-link" onClick={closeMobileMenu}>Home</Link>}
+                        <div className="navbar-links-desktop">
+                            {!isDelivery && <Link to="/" className="nav-link-item">Home</Link>}
 
                             {user && user.role === 'admin' && (
                                 <>
-                                    <Link to="/admin" className="navbar-link" onClick={closeMobileMenu}>Owner Dashboard</Link>
-                                    <Link to="/admin/orders" className="navbar-link" onClick={closeMobileMenu}>Manage Orders</Link>
+                                    <Link to="/admin" className="nav-link-item">Owner</Link>
+                                    <Link to="/admin/orders" className="nav-link-item">Orders</Link>
                                 </>
                             )}
-                            {user && user.role === 'delivery' && <Link to="/delivery" className="navbar-link" onClick={closeMobileMenu}>Delivery Panel</Link>}
-                            {user && user.role === 'user' && <Link to="/myorders" className="navbar-link" onClick={closeMobileMenu}>My Order History</Link>}
+                            {user && user.role === 'delivery' && <Link to="/delivery" className="nav-link-item">Panel</Link>}
+                            {user && user.role === 'user' && <Link to="/myorders" className="nav-link-item">My Orders</Link>}
 
                             {user && (
-                                <span className="navbar-link" style={{ cursor: 'pointer' }} onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}>
+                                <span className="nav-link-item profile-txt-link" onClick={() => setShowProfileModal(true)}>
                                     My Profile
                                 </span>
                             )}
+                        </div>
+
+                        <div className="navbar-utility-group">
+                            {(!user || (user.role !== 'admin' && user.role !== 'delivery')) && (
+                                <Link to="/cart" className="utility-btn cart-btn" onClick={closeMobileMenu}>
+                                    <FaShoppingCart />
+                                    {cartItems.length > 0 && (
+                                        <span className="cart-badge">{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>
+                                    )}
+                                </Link>
+                            )}
+                            {user ? (
+                                <div className="utility-btn profile-btn" onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}>
+                                    <FaUser />
+                                </div>
+                            ) : (
+                                <Link to="/login" className="utility-btn login-btn" onClick={closeMobileMenu}>
+                                    <FaUser />
+                                </Link>
+                            )}
 
                             {user && (
-                                <button
-                                    onClick={handleLogout}
-                                    className="navbar-link"
-                                    style={{
-                                        background: 'none',
-                                        border: 'none',
-                                        width: '100%',
-                                        textAlign: 'left',
-                                        cursor: 'pointer',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px',
-                                        padding: '15px 0'
-                                    }}
-                                >
+                                <button onClick={handleLogout} className="utility-btn logout-btn" title="Logout">
+                                    <FaSignOutAlt />
+                                    <span className="logout-text">Logout</span>
+                                </button>
+                            )}
+                        </div>
+
+                        <div className="navbar-mobile-toggle" onClick={toggleMobileMenu}>
+                            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+                        </div>
+                    </div>
+
+                    {/* Mobile Collapse Menu */}
+                    <div className={`navbar-mobile-collapse ${isMobileMenuOpen ? 'active' : ''}`}>
+                        <div className="mobile-links-container">
+                            {!isDelivery && <Link to="/" className="mobile-link" onClick={closeMobileMenu}>Home</Link>}
+                            {user && user.role === 'admin' && (
+                                <>
+                                    <Link to="/admin" className="mobile-link" onClick={closeMobileMenu}>Owner Dashboard</Link>
+                                    <Link to="/admin/orders" className="mobile-link" onClick={closeMobileMenu}>Manage Orders</Link>
+                                </>
+                            )}
+                            {user && user.role === 'delivery' && <Link to="/delivery" className="mobile-link" onClick={closeMobileMenu}>Delivery Panel</Link>}
+                            {user && user.role === 'user' && <Link to="/myorders" className="mobile-link" onClick={closeMobileMenu}>My Order History</Link>}
+
+                            {user && (
+                                <span className="mobile-link" onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}>
+                                    My Profile
+                                </span>
+                            )}
+                            {user && (
+                                <button onClick={handleLogout} className="mobile-logout-link">
                                     <FaSignOutAlt /> Logout
                                 </button>
                             )}
