@@ -11,32 +11,27 @@ import UserProfileModal from './UserProfileModal';
 const Navbar = ({ setSearchTerm }) => {
     const { user, logout } = useContext(AuthContext);
     const { cartItems } = useContext(CartContext);
-    const { location: userLocation, openLocationModal } = useContext(LocationContext);
-    const navigate = useNavigate();
-    const [searchInput, setSearchInput] = useState('');
-    const [showProfileModal, setShowProfileModal] = useState(false);
+    const { userLocation, openLocationModal } = useContext(LocationContext);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [showProfileModal, setShowProfileModal] = useState(false);
+    const [searchInput, setSearchInput] = useState('');
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
         setIsMobileMenuOpen(false);
-    }
+        navigate('/login');
+    };
+
+    const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+    const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
     const handleSearch = (e) => {
         setSearchInput(e.target.value);
         if (setSearchTerm) {
             setSearchTerm(e.target.value);
         }
-    }
-
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    }
-
-    const closeMobileMenu = () => {
-        setIsMobileMenuOpen(false);
-    }
+    };
 
     const isDelivery = user && user.role === 'delivery';
 
@@ -97,12 +92,6 @@ const Navbar = ({ setSearchTerm }) => {
                         <div className="navbar-links">
                             {!isDelivery && <Link to="/" className="navbar-link" onClick={closeMobileMenu}>Home</Link>}
 
-                            {user && (
-                                <span className="navbar-link" style={{ cursor: 'pointer' }} onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}>
-                                    My Profile
-                                </span>
-                            )}
-
                             {user && user.role === 'admin' && (
                                 <>
                                     <Link to="/admin" className="navbar-link" onClick={closeMobileMenu}>Owner Dashboard</Link>
@@ -113,7 +102,27 @@ const Navbar = ({ setSearchTerm }) => {
                             {user && user.role === 'user' && <Link to="/myorders" className="navbar-link" onClick={closeMobileMenu}>My Order History</Link>}
 
                             {user && (
-                                <button onClick={handleLogout} className="navbar-mobile-logout-btn">
+                                <span className="navbar-link" style={{ cursor: 'pointer' }} onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}>
+                                    My Profile
+                                </span>
+                            )}
+
+                            {user && (
+                                <button
+                                    onClick={handleLogout}
+                                    className="navbar-link"
+                                    style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        width: '100%',
+                                        textAlign: 'left',
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '8px',
+                                        padding: '15px 0'
+                                    }}
+                                >
                                     <FaSignOutAlt /> Logout
                                 </button>
                             )}
