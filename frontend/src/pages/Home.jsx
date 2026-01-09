@@ -113,7 +113,7 @@ const Home = () => {
 
                 {/* Best Shops Section */}
 
-                <h2 className="home-section-title" style={{ borderLeft: '4px solid #ff4757', paddingLeft: '10px' }}>
+                <h2 className="home-section-title">
                     {selectedCategory === 'All' ? 'Suggested Items' : selectedCategory}
                 </h2>
 
