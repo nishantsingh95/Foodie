@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import CartContext from '../context/CartContext';
 import LocationContext from '../context/LocationContext';
-import { FaShoppingCart, FaUser, FaSignOutAlt, FaSearch, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaSignOutAlt, FaSearch, FaMapMarkerAlt, FaBars, FaTimes } from 'react-icons/fa';
+import './Navbar.css';
 
 import UserProfileModal from './UserProfileModal';
 
@@ -14,10 +15,12 @@ const Navbar = ({ setSearchTerm }) => {
     const navigate = useNavigate();
     const [searchInput, setSearchInput] = useState('');
     const [showProfileModal, setShowProfileModal] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const handleLogout = () => {
         logout();
         navigate('/login');
+        setIsMobileMenuOpen(false);
     }
 
     const handleSearch = (e) => {
@@ -27,72 +30,87 @@ const Navbar = ({ setSearchTerm }) => {
         }
     }
 
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    }
+
+    const closeMobileMenu = () => {
+        setIsMobileMenuOpen(false);
+    }
+
     const isDelivery = user && user.role === 'delivery';
 
     return (
         <>
-            <nav style={styles.nav}>
-                <div style={styles.logoContainer}>
-                    <div style={styles.logo}>
-                        <Link to={isDelivery ? "/delivery" : "/"} style={styles.link}>
-                            <span style={styles.logoEmoji}>🍔</span>
-                            <span style={styles.logoText}>Foodie</span>
+            <nav className="navbar">
+                <div className="navbar-container">
+                    <div className="navbar-logo-container">
+                        <Link to={isDelivery ? "/delivery" : "/"} className="navbar-link" onClick={closeMobileMenu}>
+                            <span className="navbar-logo-emoji">🍔</span>
+                            <span className="navbar-logo-text">Foodie</span>
                         </Link>
                     </div>
-                    <div style={styles.location} onClick={openLocationModal} title="Click to change location">
-                        <FaMapMarkerAlt style={{ color: '#ff4757', marginRight: '5px' }} />
-                        <span style={{ fontSize: '0.9rem', color: '#ccc' }}>{userLocation || 'Locating...'}</span>
+
+                    <div className="navbar-mobile-toggle" onClick={toggleMobileMenu}>
+                        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
                     </div>
-                </div>
 
-                {!isDelivery && (
-                    <div style={styles.searchBar}>
-                        <FaSearch style={{ color: '#aaa', marginLeft: '10px' }} />
-                        <input
-                            type="text"
-                            placeholder="Search for food..."
-                            style={styles.input}
-                            value={searchInput}
-                            onChange={handleSearch}
-                        />
-                    </div>
-                )}
-
-                <div style={styles.links}>
-                    {!isDelivery && <Link to="/" style={styles.link}>Home</Link>}
-
-                    {user && user.role === 'admin' && (
-                        <>
-                            <Link to="/admin" style={styles.link}>Owner</Link>
-                            <Link to="/admin/orders" style={styles.link}>Pending Orders</Link>
-                        </>
-                    )}
-                    {user && user.role === 'delivery' && <Link to="/delivery" style={styles.link}>Delivery Dashboard</Link>}
-                    {user && user.role === 'user' && <Link to="/myorders" style={styles.link}>My Orders</Link>}
-
-                    {(!user || (user.role !== 'admin' && user.role !== 'delivery')) && (
-                        <Link to="/cart" style={{ ...styles.link, position: 'relative' }}>
-                            <FaShoppingCart />
-                            {cartItems.length > 0 && (
-                                <span style={styles.badge}>{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>
-                            )}
-                        </Link>
-                    )}
-
-                    {user ? (
-                        <div style={styles.userMenu}>
-                            <span
-                                onClick={() => setShowProfileModal(true)}
-                                style={{ marginRight: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
-                                title="View Profile"
-                            >
-                                <FaUser /> {user.name}
-                            </span>
-                            <button onClick={handleLogout} style={styles.logoutBtn}><FaSignOutAlt /></button>
+                    <div className={`navbar-collapse ${isMobileMenuOpen ? 'active' : ''}`}>
+                        <div className="navbar-location" onClick={() => { openLocationModal(); closeMobileMenu(); }} title="Click to change location">
+                            <FaMapMarkerAlt style={{ color: '#ff4757', marginRight: '5px' }} />
+                            <span style={{ fontSize: '0.9rem', color: '#ccc' }}>{userLocation || 'Locating...'}</span>
                         </div>
-                    ) : (
-                        <Link to="/login" style={styles.link}>Login</Link>
-                    )}
+
+                        {!isDelivery && (
+                            <div className="navbar-search">
+                                <FaSearch style={{ color: '#aaa', marginLeft: '10px' }} />
+                                <input
+                                    type="text"
+                                    placeholder="Search for food..."
+                                    className="navbar-search-input"
+                                    value={searchInput}
+                                    onChange={handleSearch}
+                                />
+                            </div>
+                        )}
+
+                        <div className="navbar-links">
+                            {!isDelivery && <Link to="/" className="navbar-link" onClick={closeMobileMenu}>Home</Link>}
+
+                            {user && user.role === 'admin' && (
+                                <>
+                                    <Link to="/admin" className="navbar-link" onClick={closeMobileMenu}>Owner</Link>
+                                    <Link to="/admin/orders" className="navbar-link" onClick={closeMobileMenu}>Pending Orders</Link>
+                                </>
+                            )}
+                            {user && user.role === 'delivery' && <Link to="/delivery" className="navbar-link" onClick={closeMobileMenu}>Delivery Dashboard</Link>}
+                            {user && user.role === 'user' && <Link to="/myorders" className="navbar-link" onClick={closeMobileMenu}>My Orders</Link>}
+
+                            {(!user || (user.role !== 'admin' && user.role !== 'delivery')) && (
+                                <Link to="/cart" className="navbar-link" style={{ position: 'relative' }} onClick={closeMobileMenu}>
+                                    <FaShoppingCart />
+                                    {cartItems.length > 0 && (
+                                        <span className="navbar-cart-badge">{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>
+                                    )}
+                                </Link>
+                            )}
+
+                            {user ? (
+                                <div className="navbar-user-menu">
+                                    <span
+                                        onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}
+                                        style={{ marginRight: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
+                                        title="View Profile"
+                                    >
+                                        <FaUser /> {user.name}
+                                    </span>
+                                    <button onClick={handleLogout} className="navbar-logout-btn"><FaSignOutAlt /></button>
+                                </div>
+                            ) : (
+                                <Link to="/login" className="navbar-link" onClick={closeMobileMenu}>Login</Link>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </nav>
             {showProfileModal && (
@@ -100,98 +118,6 @@ const Navbar = ({ setSearchTerm }) => {
             )}
         </>
     );
-};
-
-const styles = {
-    nav: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '0.8rem 2rem',
-        backgroundColor: '#2f3542',
-        color: '#fff',
-        borderBottom: '1px solid #444',
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000,
-    },
-    logoContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '20px',
-    },
-    logo: {
-        fontSize: '1.5rem',
-        fontWeight: 'bold',
-    },
-    logoEmoji: {
-        fontSize: '1.8rem',
-        marginRight: '8px',
-        display: 'inline-block',
-        animation: 'bounce 2s ease-in-out infinite',
-    },
-    logoText: {
-        background: 'linear-gradient(45deg, #ff4757, #ffa502)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        fontWeight: 'bold',
-        fontSize: '1.6rem',
-    },
-    location: {
-        display: 'flex',
-        alignItems: 'center',
-        cursor: 'pointer',
-    },
-    searchBar: {
-        display: 'flex',
-        alignItems: 'center',
-        backgroundColor: 'rgba(255,255,255,0.1)',
-        borderRadius: '20px',
-        padding: '5px 10px',
-        width: '30%',
-    },
-    input: {
-        background: 'none',
-        border: 'none',
-        color: '#fff',
-        padding: '8px',
-        width: '100%',
-        outline: 'none',
-    },
-    links: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '20px',
-    },
-    link: {
-        color: '#fff',
-        textDecoration: 'none',
-        fontSize: '1rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '5px'
-    },
-    badge: {
-        position: 'absolute',
-        top: '-8px',
-        right: '-12px',
-        backgroundColor: '#ff4757',
-        color: 'white',
-        borderRadius: '50%',
-        padding: '2px 6px',
-        fontSize: '0.8rem',
-    },
-    logoutBtn: {
-        background: 'none',
-        border: 'none',
-        color: '#ff4757',
-        cursor: 'pointer',
-        fontSize: '1.1rem'
-    },
-    userMenu: {
-        display: 'flex',
-        alignItems: 'center',
-    }
 };
 
 export default Navbar;
