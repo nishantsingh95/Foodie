@@ -8,6 +8,15 @@
     min-height: 100vh;
 }
 
+/* Main Grid Layout */
+.home-food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    margin-top: 1rem;
+}
+
 .home-section-title {
     margin-bottom: 2rem;
     display: flex;
@@ -15,14 +24,6 @@
     gap: 10px;
     font-size: 2rem;
     color: #fff;
-}
-
-.home-food-grid {
-    display: grid;
-    /* Fluid grid: Scales from 250px on desktop to 140px on mobile */
-    grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 20vw, 280px), 1fr));
-    gap: clamp(10px, 2vw, 2rem);
-    width: 100%;
 }
 
 .food-item-card {
@@ -117,31 +118,33 @@
     background-color: #ff6b81;
 }
 
-/* Responsive */
-/* Responsive */
-/* Responsive */
-/* Responsive Overrides for fine-tuning */
 @media (max-width: 768px) {
-    .home-section-title {
-        font-size: clamp(1.2rem, 4vw, 1.8rem);
-        margin-bottom: 1.5rem;
-    }
-}
-
-@media (max-width: 600px) {
     .home-food-grid {
-        gap: 12px;
-        /* Consistent mobile gap */
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .home-food-grid>* {
+        /* Force about 2 columns with a bit of gap */
+        width: calc(50% - 10px) !important;
+        min-width: 140px;
     }
 
     .home-container {
         padding: 1rem;
     }
+
+    .home-section-title {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
 }
 
-@media (max-width: 360px) {
-    .home-food-grid {
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-        gap: 8px;
+@media (max-width: 350px) {
+    .home-food-grid>* {
+        width: 100% !important;
+        /* Single column for very small */
     }
 }
