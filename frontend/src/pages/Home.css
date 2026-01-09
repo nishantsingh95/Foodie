@@ -2,62 +2,77 @@
 /* .home-page {} Removed empty rule */
 
 .home-container {
-    padding: clamp(1rem, 3vw, 2rem);
-    max-width: 1400px;
+    padding: 2rem;
+    max-width: 1300px;
     margin: 0 auto;
     min-height: 100vh;
 }
 
 .home-section-title {
-    margin-bottom: clamp(1rem, 3vw, 2rem);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: clamp(1.2rem, 4vw, 2rem);
+    margin: 0 0 2rem 0;
+    font-size: 2rem;
     color: #fff;
-    border-left: 4px solid #ff4757;
+    border-left: 5px solid #ff4757;
     padding-left: 15px;
+    line-height: 1;
 }
 
+/* Base Grid Layout (Desktop) */
 .home-food-grid {
     display: grid;
-    /* This is the key: auto-fill with a minimum width that allows 2-col on small phones but multiple on laptops */
-    grid-template-columns: repeat(auto-fill, minmax(clamp(150px, 22vw, 300px), 1fr));
-    gap: clamp(10px, 3vw, 2.5rem);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
     width: 100%;
+    align-items: stretch;
 }
 
-/* Specific Tablet/Mobile fine-tuning */
-@media (max-width: 480px) {
+/* Tablet Layout */
+@media (max-width: 1024px) {
     .home-container {
-        padding: 1rem 0.5rem;
+        padding: 1.5rem;
     }
 
     .home-food-grid {
-        /* Ensure it doesn't drop to 1 column unless the screen is VERY small (< 320px) */
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .home-section-title {
+        font-size: 1.6rem;
     }
 }
 
-/* Item Card base styles (if used in Home directly) */
-.food-item-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    transition: transform 0.2s;
+/* Mobile Layout: STRICT 2 COLUMNS FOR MULTI-ROW WRAPPING */
+@media (max-width: 768px) {
+    .home-container {
+        padding: 1rem;
+    }
+
+    .home-food-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
+    }
+
+    .home-section-title {
+        font-size: 1.3rem;
+        margin-bottom: 1.2rem;
+    }
 }
 
-.food-item-card:hover {
-    transform: translateY(-5px);
+/* Very Small Mobile */
+@media (max-width: 400px) {
+    .home-container {
+        padding: 0.8rem;
+    }
+
+    .home-food-grid {
+        gap: 8px;
+    }
 }
 
-.food-item-img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 10px;
+/* If screen is extremely tiny, move to 1 col */
+@media (max-width: 320px) {
+    .home-food-grid {
+        grid-template-columns: 1fr !important;
+    }
 }
