@@ -16,17 +16,35 @@ export const CartProvider = ({ children }) => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
-    const addToCart = (item, quantity = 1) => {
-        const existItem = cartItems.find((x) => x._id === item._id);
+    const addToCart = (item, quantity = 1, forceNew = false) => {
+        const itemRestaurant = item.restaurant || 'Foodie Kitchen';
+
+        // Check for restaurant mismatch
+        if (!forceNew && cartItems.length > 0) {
+            const currentRestaurant = cartItems[0].restaurant || 'Foodie Kitchen';
+            if (itemRestaurant !== currentRestaurant) {
+                return {
+                    success: false,
+                    error: 'conflict',
+                    currentRestaurant,
+                    newRestaurant: itemRestaurant
+                };
+            }
+        }
+
+        let targetCart = forceNew ? [] : cartItems;
+        const existItem = targetCart.find((x) => x._id === item._id);
+
         if (existItem) {
             setCartItems(
-                cartItems.map((x) =>
+                targetCart.map((x) =>
                     x._id === existItem._id ? { ...x, qty: x.qty + quantity } : x
                 )
             );
         } else {
-            setCartItems([...cartItems, { ...item, qty: quantity }]);
+            setCartItems([...targetCart, { ...item, qty: quantity, restaurant: itemRestaurant }]);
         }
+        return { success: true };
     };
 
     const removeFromCart = (id) => {

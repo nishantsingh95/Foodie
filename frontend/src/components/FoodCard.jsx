@@ -8,15 +8,27 @@ import axios from 'axios';
 import API_URL from '../config/api';
 
 const FoodCard = ({ food }) => {
-    const { addToCart } = useContext(CartContext);
+    const { addToCart, clearCart } = useContext(CartContext);
     const { user } = useContext(AuthContext);
     const [qty, setQty] = useState(1);
     const navigate = useNavigate();
 
     const handleAddToCart = () => {
-        addToCart(food, qty);
-        toast.success(`${qty} ${food.name} added to cart`);
-        setQty(1);
+        const result = addToCart(food, qty);
+
+        if (result.success) {
+            toast.success(`${qty} ${food.name} added to cart`);
+            setQty(1);
+        } else if (result.error === 'conflict') {
+            if (window.confirm(`Start a new basket?\n\nYour basket contains items from "${result.currentRestaurant}". Do you want to clear it and add items from "${result.newRestaurant}"?`)) {
+
+                // Force new cart
+                addToCart(food, qty, true);
+
+                toast.success(`${qty} ${food.name} added to new basket`);
+                setQty(1);
+            }
+        }
     };
 
     const handleEditClick = () => {
