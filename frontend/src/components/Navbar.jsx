@@ -56,8 +56,8 @@ const Navbar = ({ setSearchTerm }) => {
                     </div>
 
                     <div className={`navbar-collapse ${isMobileMenuOpen ? 'active' : ''}`}>
-                        <div className="navbar-location" onClick={() => { openLocationModal(); closeMobileMenu(); }} title="Click to change location">
-                            <FaMapMarkerAlt style={{ color: '#ff4757', marginRight: '5px' }} />
+                        <div className="navbar-location" onClick={() => { openLocationModal(); closeMobileMenu(); }} title={userLocation || "Click to change location"}>
+                            <FaMapMarkerAlt style={{ color: '#ff4757', marginRight: '5px', flexShrink: 0 }} />
                             <span style={{ fontSize: '0.9rem', color: '#ccc' }}>{userLocation || 'Locating...'}</span>
                         </div>
 
