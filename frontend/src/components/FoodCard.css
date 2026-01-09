@@ -22,27 +22,63 @@
 }
 
 /* Mobile Responsiveness */
+/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .food-card-image-container {
-        height: 220px;
+        height: 140px;
+        /* Reduced for 2-col density */
     }
 
     .food-card-title {
-        font-size: 1.3rem !important;
+        font-size: 1rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .food-card-price {
-        font-size: 1.2rem !important;
-    }
-
-    .food-card-add-btn {
-        padding: 10px 20px !important;
         font-size: 1rem !important;
     }
 
-    .food-card-qty-btn {
-        padding: 8px 12px !important;
+    .food-card-desc {
+        -webkit-line-clamp: 1 !important;
+        /* Fewer lines on mobile */
     }
+
+    .food-card-add-btn {
+        padding: 6px 12px !important;
+        font-size: 0.85rem !important;
+    }
+
+    .food-card-qty-btn {
+        padding: 5px 8px !important;
+    }
+
+    .food-card-admin-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .food-card-content {
+        padding: 0.8rem;
+    }
+}
+
+/* Admin Actions */
+.food-card-admin-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.edit-btn {
+    background-color: #1e90ff;
+    flex: 1;
+}
+
+.delete-btn {
+    background-color: #ff4757;
+    flex: 1;
 }
 
 /* Card Content Styles */

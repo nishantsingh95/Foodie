@@ -86,11 +86,11 @@ const FoodCard = ({ food }) => {
 
                 <div className="food-card-footer">
                     {user && user.role === 'admin' ? (
-                        <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-                            <button onClick={handleEditClick} className="food-card-add-btn" style={{ flex: 1, backgroundColor: '#1e90ff' }}>
+                        <div className="food-card-admin-actions">
+                            <button onClick={handleEditClick} className="food-card-add-btn edit-btn">
                                 Edit
                             </button>
-                            <button onClick={handleDeleteClick} className="food-card-add-btn" style={{ flex: 1, backgroundColor: '#ff4757' }}>
+                            <button onClick={handleDeleteClick} className="food-card-add-btn delete-btn">
                                 Delete
                             </button>
                         </div>

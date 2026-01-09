@@ -134,11 +134,13 @@
 
 @media (max-width: 480px) {
     .home-food-grid {
-        grid-template-columns: 1fr;
-        /* Force single column on very small screens */
+        grid-template-columns: 1fr 1fr;
+        /* 2 columns for better density */
+        gap: 10px;
+        /* Smaller gap */
     }
 
-    .food-item-img {
-        height: 200px;
+    .home-container {
+        padding: 1rem 0.5rem;
     }
 }
