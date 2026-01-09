@@ -43,6 +43,17 @@
     font-size: 1.6rem;
 }
 
+@media (max-width: 400px) {
+    .navbar-logo-text {
+        font-size: 1.3rem;
+        /* Smaller logo */
+    }
+
+    .navbar-logo-emoji {
+        font-size: 1.4rem;
+    }
+}
+
 /* Toggle for Mobile */
 .navbar-mobile-toggle {
     display: none;
@@ -200,6 +211,8 @@
 
     .navbar-search {
         width: 100%;
+        min-width: unset;
+        /* Remove min-width on mobile */
         /* Full width search on mobile */
     }
 

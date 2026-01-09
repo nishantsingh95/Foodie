@@ -50,6 +50,7 @@
 
     .food-card-desc {
         -webkit-line-clamp: 1 !important;
+        line-clamp: 1 !important;
         font-size: 0.75rem !important;
         margin-bottom: 8px !important;
     }
@@ -87,6 +88,17 @@
         /* Center text */
         align-items: center;
         justify-content: center;
+    }
+}
+
+@media (max-width: 350px) {
+    .food-card-content {
+        padding: 0.4rem;
+        /* Even tighter */
+    }
+
+    .food-card-title {
+        font-size: 0.85rem !important;
     }
 }
 
