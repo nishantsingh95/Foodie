@@ -86,8 +86,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     margin-top: auto;
-    gap: 12px;
+    gap: 10px;
     padding-top: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -97,6 +98,9 @@
     align-items: center;
     background: rgba(255, 255, 255, 0.07);
     border-radius: 8px;
+    flex: 1;
+    min-width: 90px;
+    justify-content: center;
 }
 
 .food-card-qty-btn {
@@ -108,7 +112,7 @@
 }
 
 .food-card-add-btn {
-    padding: 10px 20px;
+    padding: 10px 15px;
     background-color: #ff4757;
     color: #fff;
     border: none;
@@ -116,6 +120,10 @@
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
+    flex: 1;
+    min-width: 80px;
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 .food-card-add-btn:hover:not(.disabled) {
