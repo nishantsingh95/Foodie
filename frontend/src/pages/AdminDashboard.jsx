@@ -324,28 +324,32 @@ const AdminDashboard = () => {
                                 {uploading && <p style={{ color: '#ffa502', fontSize: '0.9rem' }}>Uploading image...</p>}
                             </div>
 
-                            <div className="admin-input" style={{ display: 'flex', alignItems: 'center', gap: '20px', color: '#ccc' }}>
-                                <label style={{ fontWeight: 'bold' }}>Type:</label>
-                                <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
-                                    <input type="radio" name="isVeg" value="true" checked={foodForm.isVeg === true} onChange={handleFoodChange} />
-                                    <span style={{ color: 'lightgreen' }}>Veg</span>
-                                </label>
-                                <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
-                                    <input type="radio" name="isVeg" value="false" checked={foodForm.isVeg === false} onChange={handleFoodChange} />
-                                    <span style={{ color: '#ff4757' }}>Non-Veg</span>
-                                </label>
+                            <div className="admin-input" style={{ display: 'flex', alignItems: 'center', gap: '15px', color: '#ccc', flexWrap: 'wrap' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                    <label style={{ fontWeight: 'bold' }}>Type:</label>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
+                                        <input type="radio" name="isVeg" value="true" checked={foodForm.isVeg === true} onChange={handleFoodChange} />
+                                        <span style={{ color: 'lightgreen' }}>Veg</span>
+                                    </label>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
+                                        <input type="radio" name="isVeg" value="false" checked={foodForm.isVeg === false} onChange={handleFoodChange} />
+                                        <span style={{ color: '#ff4757' }}>Non-Veg</span>
+                                    </label>
+                                </div>
 
                                 <label style={{
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: '12px',
-                                    marginLeft: 'auto',
                                     cursor: 'pointer',
-                                    background: foodForm.available ? 'rgba(144, 238, 144, 0.1)' : 'rgba(255, 71, 87, 0.1)',
-                                    padding: '8px 15px',
+                                    background: foodForm.available ? 'rgba(144, 238, 144, 0.05)' : 'rgba(255, 71, 87, 0.05)',
+                                    padding: '8px 12px',
                                     borderRadius: '8px',
-                                    border: `1px solid ${foodForm.available ? 'rgba(144, 238, 144, 0.3)' : 'rgba(255, 71, 87, 0.3)'}`,
-                                    transition: 'all 0.3s'
+                                    border: `1px solid ${foodForm.available ? 'rgba(144, 238, 144, 0.2)' : 'rgba(255, 71, 87, 0.2)'}`,
+                                    transition: 'all 0.3s',
+                                    flex: '1 1 auto',
+                                    justifyContent: 'center',
+                                    minWidth: '200px'
                                 }}>
                                     <input
                                         type="checkbox"
@@ -354,7 +358,7 @@ const AdminDashboard = () => {
                                         onChange={(e) => setFoodForm({ ...foodForm, available: e.target.checked })}
                                         style={{ width: '18px', height: '18px', cursor: 'pointer' }}
                                     />
-                                    <span style={{ color: foodForm.available ? 'lightgreen' : '#ff4757', fontWeight: '800', fontSize: '0.9rem' }}>
+                                    <span style={{ color: foodForm.available ? 'lightgreen' : '#ff4757', fontWeight: '800', fontSize: '0.85rem' }}>
                                         {foodForm.available ? 'In Stock (Available)' : 'Out of Stock (Unavailable)'}
                                     </span>
                                 </label>
