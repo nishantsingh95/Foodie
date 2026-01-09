@@ -21,7 +21,7 @@
    on tablets/small desktops, avoiding the "blown up" look. */
 .home-food-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: clamp(15px, 3vw, 2.5rem);
     width: 100%;
 }

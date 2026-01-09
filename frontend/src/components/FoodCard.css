@@ -18,8 +18,8 @@
 .food-card-image-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;
-    /* Updated to 1:1 for more compact look */
+    aspect-ratio: 16 / 11;
+    /* Restored to rectangular */
     overflow: hidden;
 }
 
