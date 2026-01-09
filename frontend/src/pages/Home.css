@@ -1,75 +1,90 @@
-/* Home Page Styles */
+/* ================= HOME PAGE ================= */
 
 .home-container {
-    padding: 2rem var(--container-padding);
-    max-width: 1400px;
+    padding: 2rem 20px;
+    max-width: 1500px;
     margin: 0 auto;
-    min-height: 100vh;
+    width: 100%;
 }
 
 .home-section-title {
     margin: 1.5rem 0 2rem 0;
-    font-size: clamp(1.5rem, 5vw, 2.22rem);
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
     color: #fff;
     border-left: 6px solid #ff4757;
     padding-left: 20px;
-    line-height: 1.1;
     font-weight: 800;
 }
 
-/* 
-   TRULY FLEXIBLE & RESPONSIVE GRID
-   - minmax(clamp(160px, 20vw, 280px), 1fr) 
-     This ensures the cards shrink as the viewport shrinks, 
-     fitting as many columns as possible before wrapping.
-*/
+/* ================= DESKTOP GRID ================= */
+
 .home-food-grid {
     display: grid;
-    /* This makes the "flexible" magic happen: cards downsize before they wrap */
-    grid-template-columns: repeat(auto-fill, minmax(clamp(160px, 22vw, 300px), 1fr));
-    gap: clamp(12px, 3vw, 2.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
     width: 100%;
-    align-items: stretch;
 }
 
-/* Tablet / Large Mobile */
+/* ================= TABLET ================= */
+
 @media (max-width: 1024px) {
     .home-food-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 1.5rem;
     }
 }
 
-/* Smart Mobile Wrapping */
+/* ================= MOBILE SLIDER ================= */
+
 @media (max-width: 768px) {
+
     .home-container {
         padding: 1rem 15px;
     }
 
     .home-section-title {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         margin: 1rem 0;
     }
 
+    /* TURN GRID INTO HORIZONTAL SCROLLER */
     .home-food-grid {
-        /* Force 2 columns for a high-end food delivery app feel */
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
         gap: 12px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 12px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .home-food-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* EACH FOOD CARD */
+    .home-food-grid>* {
+        min-width: 75%;
+        flex-shrink: 0;
+        scroll-snap-align: start;
     }
 }
 
-/* Ultra-Compact Mobile */
-@media (max-width: 480px) {
-    .home-food-grid {
-        /* Keep 2 columns but make them smaller */
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+/* ================= VERY SMALL PHONES ================= */
+
+@media (max-width: 400px) {
+    .home-food-grid>* {
+        min-width: 85%;
     }
 }
 
-/* Small Device Fallback */
-@media (max-width: 350px) {
+/* ================= ULTRA SMALL ================= */
+
+@media (max-width: 320px) {
     .home-food-grid {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+    }
+
+    .home-food-grid>* {
+        min-width: 100%;
     }
 }
