@@ -55,40 +55,43 @@ const Navbar = ({ setSearchTerm }) => {
                         {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
                     </div>
 
-                    <div className={`navbar-collapse ${isMobileMenuOpen ? 'active' : ''}`}>
-                        <div className="navbar-location" onClick={() => { openLocationModal(); closeMobileMenu(); }} title={userLocation || "Click to change location"}>
+                    <div className="navbar-actions">
+                        <div className="navbar-location" onClick={() => { openLocationModal(); }} title={userLocation || "Click to change location"}>
                             <FaMapMarkerAlt style={{ color: '#ff4757', marginRight: '5px', flexShrink: 0 }} />
-                            <span style={{ fontSize: '0.9rem', color: '#ccc' }}>{userLocation || 'Locating...'}</span>
+                            <span className="location-text">{userLocation || 'Locating...'}</span>
                         </div>
 
                         {!isDelivery && (
                             <div className="navbar-search">
-                                <FaSearch style={{ color: '#aaa', marginLeft: '10px' }} />
+                                <FaSearch className="search-icon" />
                                 <input
                                     type="text"
-                                    placeholder="Search for food..."
+                                    placeholder="Search..."
                                     className="navbar-search-input"
                                     value={searchInput}
                                     onChange={handleSearch}
                                 />
                             </div>
                         )}
+                    </div>
 
+                    <div className={`navbar-collapse ${isMobileMenuOpen ? 'active' : ''}`}>
                         <div className="navbar-links">
                             {!isDelivery && <Link to="/" className="navbar-link" onClick={closeMobileMenu}>Home</Link>}
 
                             {user && user.role === 'admin' && (
                                 <>
                                     <Link to="/admin" className="navbar-link" onClick={closeMobileMenu}>Owner</Link>
-                                    <Link to="/admin/orders" className="navbar-link" onClick={closeMobileMenu}>Pending Orders</Link>
+                                    <Link to="/admin/orders" className="navbar-link" onClick={closeMobileMenu}>Orders</Link>
                                 </>
                             )}
-                            {user && user.role === 'delivery' && <Link to="/delivery" className="navbar-link" onClick={closeMobileMenu}>Delivery Dashboard</Link>}
+                            {user && user.role === 'delivery' && <Link to="/delivery" className="navbar-link" onClick={closeMobileMenu}>Delivery</Link>}
                             {user && user.role === 'user' && <Link to="/myorders" className="navbar-link" onClick={closeMobileMenu}>My Orders</Link>}
 
                             {(!user || (user.role !== 'admin' && user.role !== 'delivery')) && (
-                                <Link to="/cart" className="navbar-link" style={{ position: 'relative' }} onClick={closeMobileMenu}>
+                                <Link to="/cart" className="navbar-link cart-link" style={{ position: 'relative' }} onClick={closeMobileMenu}>
                                     <FaShoppingCart />
+                                    <span>Cart</span>
                                     {cartItems.length > 0 && (
                                         <span className="navbar-cart-badge">{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>
                                     )}
@@ -99,12 +102,11 @@ const Navbar = ({ setSearchTerm }) => {
                                 <div className="navbar-user-menu">
                                     <span
                                         onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}
-                                        style={{ marginRight: '10px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
-                                        title="View Profile"
+                                        className="user-profile-trigger"
                                     >
                                         <FaUser /> {user.name}
                                     </span>
-                                    <button onClick={handleLogout} className="navbar-logout-btn"><FaSignOutAlt /></button>
+                                    <button onClick={handleLogout} className="navbar-logout-btn"><FaSignOutAlt /> Logout</button>
                                 </div>
                             ) : (
                                 <Link to="/login" className="navbar-link" onClick={closeMobileMenu}>Login</Link>
