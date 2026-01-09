@@ -78,11 +78,6 @@ const Navbar = ({ setSearchTerm }) => {
                             {user && user.role === 'delivery' && <Link to="/delivery" className="nav-link-item">Panel</Link>}
                             {user && user.role === 'user' && <Link to="/myorders" className="nav-link-item">My Orders</Link>}
 
-                            {user && (
-                                <span className="nav-link-item profile-txt-link" onClick={() => setShowProfileModal(true)}>
-                                    My Profile
-                                </span>
-                            )}
                         </div>
 
                         <div className="navbar-utility-group">
@@ -130,11 +125,6 @@ const Navbar = ({ setSearchTerm }) => {
                             {user && user.role === 'delivery' && <Link to="/delivery" className="mobile-link" onClick={closeMobileMenu}>Delivery Panel</Link>}
                             {user && user.role === 'user' && <Link to="/myorders" className="mobile-link" onClick={closeMobileMenu}>My Order History</Link>}
 
-                            {user && (
-                                <span className="mobile-link" onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}>
-                                    My Profile
-                                </span>
-                            )}
                             {user && (
                                 <button onClick={handleLogout} className="mobile-logout-link">
                                     <FaSignOutAlt /> Logout

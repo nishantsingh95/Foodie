@@ -336,7 +336,8 @@ const getStatusColor = (status) => {
     switch (status) {
         case 'Driver Assigned': return '#ffa502';
         case 'Out for Delivery': return '#1e90ff';
-        case 'Delivered': return '#2ed573';
+        case 'Delivered':
+        case 'Completed': return '#2ed573';
         default: return '#fff';
     }
 };

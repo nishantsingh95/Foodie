@@ -34,7 +34,8 @@ const MyOrders = () => {
             case 'Pending': return '#f39c12';
             case 'Prepared': return '#3498db';
             case 'Out for Delivery': return '#e67e22';
-            case 'Delivered': return '#2ecc71';
+            case 'Delivered':
+            case 'Completed': return '#2ecc71';
             default: return '#95a5a6';
         }
     };
@@ -71,12 +72,14 @@ const MyOrders = () => {
                                     </p>
                                 </div>
 
-                                <button
-                                    onClick={() => navigate(`/track/${order._id}`)}
-                                    className="track-order-btn"
-                                >
-                                    Track Order
-                                </button>
+                                {order.status !== 'Delivered' && order.status !== 'Completed' && (
+                                    <button
+                                        onClick={() => navigate(`/track/${order._id}`)}
+                                        className="track-order-btn"
+                                    >
+                                        Track Order
+                                    </button>
+                                )}
                             </div>
                         ))
                     ) : (

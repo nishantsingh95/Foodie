@@ -134,7 +134,7 @@ const TrackOrder = () => {
                                         <div
                                             className="timeline-icon"
                                             style={{
-                                                background: isCompleted ? '#ffa502' : '#444',
+                                                background: isCompleted ? '#2ecc71' : '#444',
                                                 transform: isCurrent ? 'scale(1.2)' : 'scale(1)',
                                             }}
                                         >
@@ -154,7 +154,7 @@ const TrackOrder = () => {
                                         {index < statusSteps.length - 1 && (
                                             <div
                                                 className="timeline-line"
-                                                style={{ background: isCompleted ? '#ffa502' : '#444' }}
+                                                style={{ background: isCompleted ? '#2ecc71' : '#444' }}
                                             />
                                         )}
                                     </div>

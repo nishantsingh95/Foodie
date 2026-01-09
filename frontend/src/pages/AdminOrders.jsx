@@ -106,7 +106,7 @@ const AdminOrders = () => {
                                     <div style={{ textAlign: 'right' }}>
                                         <p className="order-price-db">₹{order.totalPrice}</p>
                                         <span className="order-status-badge" style={{
-                                            backgroundColor: order.status === 'Delivered' ? '#2ed573' : (order.status === 'Cancelled' ? '#ff4757' : '#ffa502'),
+                                            backgroundColor: (order.status === 'Delivered' || order.status === 'Completed') ? '#2ed573' : (order.status === 'Cancelled' ? '#ff4757' : '#ffa502'),
                                         }}>
                                             {order.status}
                                         </span>
