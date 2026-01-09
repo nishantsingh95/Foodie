@@ -19,8 +19,10 @@
 
 .home-food-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    /* Fluid grid: Scales from 250px on desktop to 140px on mobile */
+    grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 20vw, 280px), 1fr));
+    gap: clamp(10px, 2vw, 2rem);
+    width: 100%;
 }
 
 .food-item-card {
@@ -118,14 +120,15 @@
 /* Responsive */
 /* Responsive */
 /* Responsive */
+/* Responsive Overrides for fine-tuning */
 @media (max-width: 768px) {
     .home-container {
-        padding: 1rem;
+        padding: 1.5rem 1rem;
     }
 
     .home-section-title {
-        font-size: 1.2rem;
-        margin-bottom: 0.8rem;
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        margin-bottom: 1.5rem;
     }
 
     .home-food-grid {
@@ -136,18 +139,21 @@
 }
 
 @media (max-width: 480px) {
-    .home-food-grid {
-        gap: 8px;
-        /* Tighter gap for small phones */
+    .home-container {
+        padding: 1rem 0.6rem;
     }
 
-    .home-container {
-        padding: 0.8rem;
+    /* Ensure 2 columns on even the smallest modern phones */
+    .home-food-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 8px;
     }
 }
 
 @media (max-width: 320px) {
+
+    /* Very old/small phones */
     .home-food-grid {
-        gap: 5px;
+        grid-template-columns: 1fr;
     }
 }

@@ -15,93 +15,68 @@
 
 .food-card-image-container {
     position: relative;
-    height: 180px;
     width: 100%;
+    aspect-ratio: 16 / 10;
+    /* Dynamic height based on width */
+    overflow: hidden;
 }
 
 .food-card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.food-card:hover .food-card-image {
+    transform: scale(1.05);
+    /* Subtle zoom on hover */
 }
 
 /* Mobile Responsiveness */
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
-    .food-card-image-container {
-        height: 100px;
-        /* Even smaller for 2-col depth */
+    .food-card-content {
+        padding: 0.6rem;
     }
 
+    .food-card-desc {
+        display: none !important;
+        /* Keep it clean for 2-col mobile */
+    }
+
+    .food-card-footer {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .food-card-add-btn {
+        flex: 1;
+        padding: 6px 0 !important;
+        font-size: 0.8rem !important;
+        min-width: 60px;
+    }
+
+    .food-card-qty-control {
+        scale: 0.85;
+        transform-origin: left center;
+    }
+}
+
+@media (max-width: 380px) {
     .food-card-content {
         padding: 0.5rem;
     }
 
     .food-card-title {
-        font-size: 0.9rem !important;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-bottom: 1px !important;
-    }
-
-    .food-card-restaurant {
-        font-size: 0.65rem !important;
-        margin-bottom: 1px !important;
-    }
-
-    .food-card-price {
         font-size: 0.85rem !important;
-    }
-
-    .food-card-desc {
-        display: none !important;
-        /* Hide description on mobile to look like Swiggy/Zomato grid */
-    }
-
-    .food-card-footer {
-        flex-direction: column;
-        /* Stack actions if needed */
-        gap: 5px;
-        align-items: stretch;
-    }
-
-    .food-card-qty-control {
-        justify-content: center;
-        width: 100%;
-        scale: 0.9;
-    }
-
-    .food-card-add-btn {
-        width: 100%;
-        padding: 5px 0 !important;
-        font-size: 0.75rem !important;
-        height: 30px;
-    }
-
-    .food-card-qty-btn {
-        padding: 4px 10px !important;
-    }
-}
-
-@media (max-width: 380px) {
-    .food-card-image-container {
-        height: 90px;
-    }
-
-    .food-card-title {
-        font-size: 0.8rem !important;
-    }
-
-    .food-card-price {
-        font-size: 0.75rem !important;
     }
 }
 
 /* Admin Actions */
 .food-card-admin-actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     width: 100%;
 }
 
@@ -129,22 +104,26 @@
     align-items: flex-start;
 }
 
+/* Fluid Typography for the Card */
 .food-card-title {
-    margin: 0 0 5px 0;
-    font-size: 1.1rem;
+    margin: 0 0 4px 0;
+    font-size: clamp(0.9rem, 1.2vw, 1.25rem);
     font-weight: 700;
     color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .food-card-price {
     color: #ff4757;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 1.1vw, 1.1rem);
 }
 
 .food-card-restaurant {
     color: #ffa502;
-    font-size: 0.8rem;
+    font-size: clamp(0.65rem, 0.9vw, 0.85rem);
     margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
@@ -152,8 +131,8 @@
 
 .food-card-desc {
     color: #aaa;
-    font-size: 0.85rem;
-    margin-bottom: 10px;
+    font-size: clamp(0.7rem, 0.8vw, 0.9rem);
+    margin-bottom: clamp(8px, 1vw, 12px);
     flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -189,7 +168,7 @@
 }
 
 .food-card-add-btn {
-    padding: 6px 16px;
+    padding: 8px 16px;
     background-color: #ff4757;
     color: #fff;
     border: none;
@@ -197,4 +176,9 @@
     font-weight: bold;
     cursor: pointer;
     font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.food-card-add-btn:hover {
+    background-color: #ff6b81;
 }
