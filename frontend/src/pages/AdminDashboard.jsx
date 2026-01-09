@@ -99,12 +99,15 @@ const AdminDashboard = () => {
 
     const fetchFoods = async () => {
         try {
-            const res = await axios.get(`${API_URL}/api/food`);
+            const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+            const res = await axios.get(`${API_URL}/api/food/myfoods`, config);
             setFoods(res.data);
             const existingCategories = res.data.map(f => f.category);
             setCategories(prev => [...new Set([...prev, ...existingCategories])]);
         } catch (err) {
             console.error(err);
+            // Fallback to empty if shop not found (e.g. new user)
+            setFoods([]);
         }
     };
 

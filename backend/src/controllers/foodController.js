@@ -1,11 +1,28 @@
 const Food = require('../models/Food');
+const Shop = require('../models/Shop');
 
-// @desc    Get all food items
+// @desc    Get all food items (Public)
 // @route   GET /api/food
 // @access  Public
 const getFoods = async (req, res) => {
     try {
         const foods = await Food.find({});
+        res.json(foods);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// @desc    Get logged-in owner's food items
+// @route   GET /api/food/myfoods
+// @access  Private/Admin
+const getMyFoods = async (req, res) => {
+    try {
+        const shop = await Shop.findOne({ user: req.user._id });
+        if (!shop) {
+            return res.status(404).json({ message: 'Shop not found for this user' });
+        }
+        const foods = await Food.find({ restaurant: shop.name });
         res.json(foods);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -85,4 +102,4 @@ const updateFood = async (req, res) => {
     }
 };
 
-module.exports = { getFoods, addFood, deleteFood, updateFood };
+module.exports = { getFoods, getMyFoods, addFood, deleteFood, updateFood };
