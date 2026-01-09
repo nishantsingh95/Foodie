@@ -104,7 +104,7 @@ const Cart = () => {
 
                                     <div className="cart-item-details">
                                         <h3 className="cart-item-name">{item.name}</h3>
-                                        <p className="cart-item-price">${item.price}</p>
+                                        <p className="cart-item-price">₹{item.price}</p>
                                     </div>
 
                                     <div className="qty-control">
@@ -126,7 +126,7 @@ const Cart = () => {
 
                                     <div className="cart-item-total-section">
                                         <p className="cart-total-label">Total</p>
-                                        <p className="cart-total-price">${(item.price * item.qty).toFixed(2)}</p>
+                                        <p className="cart-total-price">₹{(item.price * item.qty).toFixed(2)}</p>
                                     </div>
 
                                     <button
@@ -145,7 +145,7 @@ const Cart = () => {
 
                             <div className="summary-row">
                                 <span className="summary-label">Subtotal ({cartItems.length} items)</span>
-                                <span className="summary-value">${totalPrice}</span>
+                                <span className="summary-value">₹{totalPrice}</span>
                             </div>
 
                             <div className="summary-row">
@@ -157,7 +157,7 @@ const Cart = () => {
 
                             <div className="summary-row">
                                 <span className="cart-total-label" style={{ fontSize: '1.2rem' }}>Total</span>
-                                <span className="grand-total">${totalPrice}</span>
+                                <span className="grand-total">₹{totalPrice}</span>
                             </div>
 
                             <button onClick={handleCheckoutClick} className="checkout-btn">

@@ -67,7 +67,7 @@ const MyOrders = () => {
                                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px', marginTop: '10px' }}>
                                     <p style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', color: '#fff' }}>
                                         <span>Total Amount:</span>
-                                        <span>${order.totalPrice}</span>
+                                        <span>₹{order.totalPrice}</span>
                                     </p>
                                 </div>
 

@@ -104,7 +104,7 @@ const AdminOrders = () => {
                                         </p>
                                     </div>
                                     <div style={{ textAlign: 'right' }}>
-                                        <p className="order-price-db">${order.totalPrice}</p>
+                                        <p className="order-price-db">₹{order.totalPrice}</p>
                                         <span className="order-status-badge" style={{
                                             backgroundColor: order.status === 'Delivered' ? '#2ed573' : (order.status === 'Cancelled' ? '#ff4757' : '#ffa502'),
                                         }}>
@@ -117,7 +117,7 @@ const AdminOrders = () => {
                                     {order.orderItems.map((item, idx) => (
                                         <div key={idx} className="order-item-row">
                                             <span>{item.qty} x {item.name}</span>
-                                            <span>${item.qty * item.price}</span>
+                                            <span>₹{item.qty * item.price}</span>
                                         </div>
                                     ))}
                                 </div>

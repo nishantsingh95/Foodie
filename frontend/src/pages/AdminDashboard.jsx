@@ -390,7 +390,7 @@ const AdminDashboard = () => {
                                         </div>
 
                                         <div className="food-footer">
-                                            <span className="food-price">${food.price}</span>
+                                            <span className="food-price">₹{food.price}</span>
                                             <div className="food-actions">
                                                 <button onClick={() => handleEditFood(food)} className="edit-btn">Edit</button>
                                                 <button onClick={() => handleDeleteFood(food._id)} className="delete-btn">Delete</button>

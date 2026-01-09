@@ -226,7 +226,7 @@ const DeliveryDashboard = () => {
                                         <div key={order._id} className="delivery-card">
                                             <div className="card-header">
                                                 <span className="order-id">#{order._id.slice(-6)}</span>
-                                                <span className="order-price">${order.totalPrice}</span>
+                                                <span className="order-price">₹{order.totalPrice}</span>
                                             </div>
                                             <div className="card-body">
                                                 <p><span className="card-label">Pickup:</span> {order.restaurant || 'Foodie Kitchen'}</p>

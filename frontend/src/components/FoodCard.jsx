@@ -61,7 +61,7 @@ const FoodCard = ({ food }) => {
             <div style={styles.content}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                     <h3 style={styles.title}>{food.name}</h3>
-                    <span style={styles.price}>${food.price}</span>
+                    <span style={styles.price}>₹{food.price}</span>
                 </div>
 
                 <p style={styles.restaurant}>

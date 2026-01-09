@@ -168,12 +168,12 @@ const TrackOrder = () => {
                             {trackingData.orderItems.map((item, index) => (
                                 <div key={index} className="order-detail-item">
                                     <span>{item.qty}x {item.name}</span>
-                                    <span>${item.price}</span>
+                                    <span>₹{item.price}</span>
                                 </div>
                             ))}
                             <div className="total-row">
                                 <span className="total-label">Total</span>
-                                <span className="total-price">${trackingData.totalPrice}</span>
+                                <span className="total-price">₹{trackingData.totalPrice}</span>
                             </div>
                         </div>
 
