@@ -24,6 +24,7 @@
     align-items: center;
     flex-shrink: 0;
     transition: transform 0.3s ease;
+    grid-area: logo;
 }
 
 .navbar-logo-container:hover {
@@ -48,14 +49,6 @@
     display: inline-block;
 }
 
-.navbar-actions {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    max-width: 700px;
-    gap: 15px;
-}
-
 .navbar-location {
     display: flex;
     align-items: center;
@@ -66,6 +59,7 @@
     max-width: 180px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+    grid-area: location;
 }
 
 .navbar-location:hover {
@@ -91,6 +85,7 @@
     flex: 1;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
+    grid-area: search;
 }
 
 .navbar-search:focus-within {
@@ -123,15 +118,16 @@
     display: none;
     font-size: 1.4rem;
     cursor: pointer;
-    order: 10;
     color: #eee;
     padding: 5px;
+    grid-area: toggle;
 }
 
 .navbar-collapse {
     display: flex;
     align-items: center;
     margin-left: auto;
+    grid-area: collapse;
 }
 
 .navbar-links {
@@ -202,11 +198,26 @@
     color: #fff;
 }
 
-@media (max-width: 1024px) {
-    .navbar-actions {
-        max-width: 400px;
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
     }
 
+    40% {
+        transform: translateY(-6px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+@media (max-width: 1024px) {
     .navbar-logo-text {
         font-size: 1.4rem;
     }
@@ -215,44 +226,45 @@
 @media (max-width: 768px) {
     .navbar-container {
         padding: 0.7rem 15px;
-        flex-wrap: wrap;
-        gap: 12px;
+        display: grid;
+        grid-template-areas:
+            "logo location"
+            "toggle search";
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+        gap: 12px 15px;
     }
 
     .navbar-logo-container {
-        order: 1;
+        justify-self: start;
     }
 
     .navbar-logo-text {
         display: inline-block !important;
-        /* Ensure it's ALWAYS visible */
         font-size: 1.3rem;
+    }
+
+    .navbar-location {
+        justify-self: end;
+        max-width: 140px;
+        margin: 0;
+        padding: 5px 12px;
     }
 
     .navbar-mobile-toggle {
         display: block;
-        order: 2;
-    }
-
-    .navbar-actions {
-        order: 3;
-        width: 100%;
-        max-width: none;
-        gap: 10px;
-    }
-
-    .navbar-location {
-        flex: 0 0 auto;
-        max-width: 120px;
-        padding: 6px 10px;
+        justify-self: start;
+        margin: 0;
+        padding: 0;
     }
 
     .navbar-search {
-        flex: 1;
+        width: 100%;
+        margin: 0;
     }
 
     .navbar-collapse {
-        order: 4;
+        grid-area: collapse;
         display: none;
         width: 100%;
         background: #252b36;
@@ -287,10 +299,6 @@
         width: 100%;
         gap: 15px;
     }
-
-    .cart-link span {
-        display: inline !important;
-    }
 }
 
 @media (max-width: 400px) {
@@ -299,10 +307,6 @@
     }
 
     .navbar-location {
-        max-width: 90px;
-    }
-
-    .location-text {
-        font-size: 0.75rem;
+        max-width: 100px;
     }
 }

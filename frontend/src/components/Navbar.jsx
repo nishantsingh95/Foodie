@@ -55,25 +55,23 @@ const Navbar = ({ setSearchTerm }) => {
                         {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
                     </div>
 
-                    <div className="navbar-actions">
-                        <div className="navbar-location" onClick={() => { openLocationModal(); }} title={userLocation || "Click to change location"}>
-                            <FaMapMarkerAlt style={{ color: '#ff4757', marginRight: '5px', flexShrink: 0 }} />
-                            <span className="location-text">{userLocation || 'Locating...'}</span>
-                        </div>
-
-                        {!isDelivery && (
-                            <div className="navbar-search">
-                                <FaSearch className="search-icon" />
-                                <input
-                                    type="text"
-                                    placeholder="Search..."
-                                    className="navbar-search-input"
-                                    value={searchInput}
-                                    onChange={handleSearch}
-                                />
-                            </div>
-                        )}
+                    <div className="navbar-location" onClick={() => { openLocationModal(); }} title={userLocation || "Click to change location"}>
+                        <FaMapMarkerAlt style={{ color: '#ff4757', marginRight: '5px', flexShrink: 0 }} />
+                        <span className="location-text">{userLocation || 'Locating...'}</span>
                     </div>
+
+                    {!isDelivery && (
+                        <div className="navbar-search">
+                            <FaSearch className="search-icon" />
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                className="navbar-search-input"
+                                value={searchInput}
+                                onChange={handleSearch}
+                            />
+                        </div>
+                    )}
 
                     <div className={`navbar-collapse ${isMobileMenuOpen ? 'active' : ''}`}>
                         <div className="navbar-links">
