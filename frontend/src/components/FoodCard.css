@@ -1,0 +1,30 @@
+.food-card {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.05);
+    /* Glass effect fallback */
+}
+
+.food-card-image-container {
+    position: relative;
+    height: 180px;
+    width: 100%;
+}
+
+.food-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .food-card-image-container {
+        height: 220px;
+        /* Taller images on mobile */
+    }
+}

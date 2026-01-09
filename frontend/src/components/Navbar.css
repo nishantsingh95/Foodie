@@ -226,5 +226,13 @@
         width: 100%;
         justify-content: space-between;
         padding-top: 5px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px 0;
+    }
+
+    .navbar-logout-btn {
+        padding: 5px 10px;
+        border: 1px solid #ff4757;
+        border-radius: 5px;
     }
 }

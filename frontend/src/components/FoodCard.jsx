@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../config/api';
+import './FoodCard.css';
 
 const FoodCard = ({ food }) => {
     const { addToCart, clearCart } = useContext(CartContext);
@@ -50,9 +51,9 @@ const FoodCard = ({ food }) => {
     };
 
     return (
-        <div className="glass" style={styles.card}>
-            <div style={styles.imageContainer}>
-                <img src={food.image} alt={food.name} style={styles.image} />
+        <div className="glass food-card">
+            <div className="food-card-image-container">
+                <img src={food.image} alt={food.name} className="food-card-image" />
                 <div style={styles.typeTag}>
                     {food.isVeg ? (
                         <div style={{ ...styles.dot, border: '1px solid green' }} title="Veg">
@@ -112,23 +113,9 @@ const FoodCard = ({ food }) => {
 };
 
 const styles = {
-    card: {
-        padding: '0',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'transform 0.2s',
-        border: '1px solid rgba(255,255,255,0.05)',
-    },
-    imageContainer: {
-        position: 'relative',
-        height: '180px',
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-        objectFit: 'cover',
-    },
+    // card: replaced by .food-card
+    // imageContainer: replaced by .food-card-image-container
+    // image: replaced by .food-card-image
     typeTag: {
         position: 'absolute',
         top: '10px',
