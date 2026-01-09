@@ -115,8 +115,51 @@
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.food-card-add-btn:hover {
+.food-card-add-btn:hover:not(.disabled) {
     background-color: #ff6b81;
+}
+
+/* OUT OF STOCK STYLING */
+.food-card.unavailable {
+    opacity: 0.6;
+    filter: grayscale(0.8) brightness(0.7);
+    cursor: not-allowed;
+}
+
+.unavailable-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: 900;
+    font-size: 0.85rem;
+    z-index: 10;
+    white-space: nowrap;
+    border: 1px solid #ff4757;
+    letter-spacing: 0.5px;
+}
+
+.food-card-add-btn.disabled {
+    background-color: #444 !important;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+/* ADMIN ACTIONS */
+.food-card-admin-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.food-card-admin-actions .delete-btn {
+    background-color: #2f3542;
+    border: 1px solid rgba(255, 71, 87, 0.3);
 }

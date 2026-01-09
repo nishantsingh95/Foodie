@@ -127,7 +127,7 @@ const FoodCard = ({ food }) => {
                                 className={`food-card-add-btn ${!isAvailable ? 'disabled' : ''}`}
                                 disabled={!isAvailable}
                             >
-                                {isAvailable ? 'Add' : 'Off'}
+                                {isAvailable ? 'Add' : 'Out of Stock'}
                             </button>
                         </>
                     )}
