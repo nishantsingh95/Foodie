@@ -16,69 +16,66 @@
     font-weight: 800;
 }
 
-/* ================= DESKTOP GRID ================= */
+/* ================= DESKTOP GRID (FORCED 5 COLUMNS) ================= */
 
 .home-food-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    /* Exactly 5 items per row as requested */
+    grid-template-columns: repeat(5, 1fr);
     gap: 1.5rem;
     width: 100%;
 }
 
 /* ================= TABLET ================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .home-food-grid {
+        /* Drop to 4 or 3 columns on medium screens to keep cards readable */
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 1rem;
     }
 }
 
-/* ================= MOBILE GRID (2 COLUMNS) ================= */
+/* ================= MOBILE SLIDER ================= */
 
 @media (max-width: 768px) {
 
     .home-container {
-        padding: 1rem 8px;
-        /* Tighter padding for 2 cols */
+        padding: 1rem 12px;
     }
 
     .home-section-title {
-        font-size: 1.35rem;
+        font-size: 1.4rem;
         margin: 0.8rem 0;
         padding-left: 15px;
     }
 
+    /* RESTORED HORIZONTAL SCROLLER */
     .home-food-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        /* Forced 2 columns */
-        gap: 8px;
-        /* Tighter gap for small screens */
-        width: 100%;
-        overflow-x: visible;
-        padding-bottom: 0;
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 12px;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .home-food-grid>* {
-        min-width: 0;
-        width: 100%;
+    .home-food-grid::-webkit-scrollbar {
+        display: none;
     }
-}
 
-/* ================= VERY SMALL PHONES ================= */
-
-@media (max-width: 400px) {
+    /* EACH FOOD CARD IN SLIDER */
     .home-food-grid>* {
-        min-width: 85%;
+        min-width: 70%;
+        flex-shrink: 0;
+        scroll-snap-align: start;
     }
 }
 
 /* ================= ULTRA SMALL ================= */
 
-@media (max-width: 320px) {
-    .home-food-grid {
-        grid-template-columns: 1fr;
-        /* Single column only on tiny devices */
+@media (max-width: 400px) {
+    .home-food-grid>* {
+        min-width: 85%;
     }
 }
