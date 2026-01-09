@@ -122,38 +122,26 @@
 /* Responsive */
 /* Responsive Overrides for fine-tuning */
 @media (max-width: 768px) {
-    .home-container {
-        padding: 1.5rem 1rem;
-    }
-
     .home-section-title {
         font-size: clamp(1.2rem, 4vw, 1.8rem);
         margin-bottom: 1.5rem;
     }
+}
 
+@media (max-width: 600px) {
     .home-food-grid {
-        grid-template-columns: repeat(2, 1fr);
-        /* Force 2 columns */
         gap: 12px;
+        /* Consistent mobile gap */
     }
-}
 
-@media (max-width: 480px) {
     .home-container {
-        padding: 1rem 0.6rem;
-    }
-
-    /* Ensure 2 columns on even the smallest modern phones */
-    .home-food-grid {
-        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-        gap: 8px;
+        padding: 1rem;
     }
 }
 
-@media (max-width: 320px) {
-
-    /* Very old/small phones */
+@media (max-width: 360px) {
     .home-food-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 8px;
     }
 }

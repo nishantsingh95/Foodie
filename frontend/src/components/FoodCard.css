@@ -107,7 +107,7 @@
 /* Fluid Typography for the Card */
 .food-card-title {
     margin: 0 0 4px 0;
-    font-size: clamp(0.9rem, 1.2vw, 1.25rem);
+    font-size: clamp(0.95rem, 1.2vw, 1.3rem);
     font-weight: 700;
     color: #fff;
     white-space: nowrap;
@@ -117,28 +117,59 @@
 
 .food-card-price {
     color: #ff4757;
-    font-weight: bold;
-    font-size: clamp(0.85rem, 1.1vw, 1.1rem);
+    font-weight: 800;
+    font-size: clamp(0.9rem, 1.1vw, 1.2rem);
 }
 
 .food-card-restaurant {
     color: #ffa502;
-    font-size: clamp(0.65rem, 0.9vw, 0.85rem);
-    margin-bottom: 0.5rem;
+    font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+    margin-bottom: 0.8rem;
     display: flex;
     align-items: center;
+    opacity: 0.9;
 }
 
 .food-card-desc {
-    color: #aaa;
-    font-size: clamp(0.7rem, 0.8vw, 0.9rem);
-    margin-bottom: clamp(8px, 1vw, 12px);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: clamp(0.75rem, 0.8vw, 0.95rem);
+    line-height: 1.4;
+    margin-bottom: 1.2rem;
     flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+/* Mobile Polish */
+@media (max-width: 500px) {
+    .food-card-content {
+        padding: 0.8rem;
+    }
+
+    .food-card-desc {
+        display: none !important;
+        /* Extremely clean look for 2-col mobile */
+    }
+
+    .food-card-footer {
+        flex-direction: column !important;
+        gap: 10px;
+    }
+
+    .food-card-add-btn {
+        width: 100%;
+        padding: 8px 0 !important;
+        font-size: 0.85rem !important;
+    }
+
+    .food-card-qty-control {
+        width: 100%;
+        justify-content: center;
+        padding: 4px;
+    }
 }
 
 .food-card-footer {
