@@ -41,9 +41,10 @@ button {
 }
 
 @media (max-width: 768px) {
-  body {
+  /* body {
     font-size: 14px;
-  }
+  } Removed to improve readability */
+
 
   h1 {
     font-size: 1.8rem;

@@ -47,12 +47,17 @@
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .category-bar-container {
-        padding: 0.5rem 0.5rem;
-        margin-bottom: 1rem;
+        padding: 1rem 0.5rem;
+        /* More vertical breathing room */
+        margin-bottom: 1.5rem;
     }
 
     .category-btn {
-        padding: 6px 14px;
-        font-size: 0.85rem;
+        padding: 10px 20px;
+        /* Bigger touch target */
+        font-size: 1rem;
+        /* Readable text */
+        border-radius: 25px;
+        /* Rounder */
     }
 }

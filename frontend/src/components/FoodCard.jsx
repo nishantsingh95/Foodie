@@ -71,37 +71,37 @@ const FoodCard = ({ food }) => {
                 </div>
             </div>
 
-            <div style={styles.content}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h3 style={styles.title}>{food.name}</h3>
-                    <span style={styles.price}>₹{food.price}</span>
+            <div className="food-card-content">
+                <div className="food-card-header">
+                    <h3 className="food-card-title">{food.name}</h3>
+                    <span className="food-card-price">₹{food.price}</span>
                 </div>
 
-                <p style={styles.restaurant}>
+                <p className="food-card-restaurant">
                     <FaStore style={{ marginRight: '5px', fontSize: '0.9rem' }} />
                     {food.restaurant || 'Foodie Kitchen'}
                 </p>
 
-                <p style={styles.desc}>{food.description}</p>
+                <p className="food-card-desc">{food.description}</p>
 
-                <div style={styles.footer}>
+                <div className="food-card-footer">
                     {user && user.role === 'admin' ? (
                         <div style={{ display: 'flex', gap: '10px', width: '100%' }}>
-                            <button onClick={handleEditClick} style={{ ...styles.addBtn, flex: 1, backgroundColor: '#1e90ff' }}>
+                            <button onClick={handleEditClick} className="food-card-add-btn" style={{ flex: 1, backgroundColor: '#1e90ff' }}>
                                 Edit
                             </button>
-                            <button onClick={handleDeleteClick} style={{ ...styles.addBtn, flex: 1, backgroundColor: '#ff4757' }}>
+                            <button onClick={handleDeleteClick} className="food-card-add-btn" style={{ flex: 1, backgroundColor: '#ff4757' }}>
                                 Delete
                             </button>
                         </div>
                     ) : (
                         <>
-                            <div style={styles.qtyControl}>
-                                <button onClick={() => setQty(q => Math.max(1, q - 1))} style={styles.qtyBtn}><FaMinus /></button>
+                            <div className="food-card-qty-control">
+                                <button onClick={() => setQty(q => Math.max(1, q - 1))} className="food-card-qty-btn"><FaMinus /></button>
                                 <span style={{ margin: '0 10px', minWidth: '20px', textAlign: 'center' }}>{qty}</span>
-                                <button onClick={() => setQty(q => q + 1)} style={styles.qtyBtn}><FaPlus /></button>
+                                <button onClick={() => setQty(q => q + 1)} className="food-card-qty-btn"><FaPlus /></button>
                             </div>
-                            <button onClick={handleAddToCart} style={styles.addBtn}>
+                            <button onClick={handleAddToCart} className="food-card-add-btn">
                                 Add
                             </button>
                         </>
@@ -149,72 +149,6 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
-    },
-    content: {
-        padding: '1rem',
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    title: {
-        margin: '0 0 5px 0',
-        fontSize: '1.1rem',
-        fontWeight: '700',
-    },
-    price: {
-        color: '#ff4757',
-        fontWeight: 'bold',
-        fontSize: '1rem',
-    },
-    desc: {
-        color: '#aaa',
-        fontSize: '0.85rem',
-        marginBottom: '10px',
-        flex: 1,
-        display: '-webkit-box',
-        WebkitLineClamp: '2',
-        WebkitBoxOrient: 'vertical',
-        overflow: 'hidden',
-    },
-    restaurant: {
-        color: '#ffa502',
-        fontSize: '0.8rem',
-        marginBottom: '0.5rem',
-        display: 'flex',
-        alignItems: 'center',
-    },
-    footer: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 'auto',
-    },
-    qtyControl: {
-        display: 'flex',
-        alignItems: 'center',
-        background: 'rgba(255,255,255,0.1)',
-        borderRadius: '5px',
-        padding: '2px',
-    },
-    qtyBtn: {
-        background: 'none',
-        border: 'none',
-        color: '#fff',
-        padding: '5px 8px',
-        cursor: 'pointer',
-        fontSize: '0.7rem',
-        display: 'flex',
-        alignItems: 'center',
-    },
-    addBtn: {
-        padding: '6px 16px',
-        backgroundColor: '#ff4757',
-        color: '#fff',
-        border: 'none',
-        borderRadius: '5px',
-        fontWeight: 'bold',
-        cursor: 'pointer',
-        fontSize: '0.9rem',
     }
 };
 

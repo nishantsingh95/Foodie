@@ -25,6 +25,105 @@
 @media (max-width: 768px) {
     .food-card-image-container {
         height: 220px;
-        /* Taller images on mobile */
     }
+
+    .food-card-title {
+        font-size: 1.3rem !important;
+    }
+
+    .food-card-price {
+        font-size: 1.2rem !important;
+    }
+
+    .food-card-add-btn {
+        padding: 10px 20px !important;
+        font-size: 1rem !important;
+    }
+
+    .food-card-qty-btn {
+        padding: 8px 12px !important;
+    }
+}
+
+/* Card Content Styles */
+.food-card-content {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.food-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.food-card-title {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.food-card-price {
+    color: #ff4757;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.food-card-restaurant {
+    color: #ffa502;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.food-card-desc {
+    color: #aaa;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.food-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+
+.food-card-qty-control {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.food-card-qty-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+}
+
+.food-card-add-btn {
+    padding: 6px 16px;
+    background-color: #ff4757;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9rem;
 }
