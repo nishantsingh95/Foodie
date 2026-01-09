@@ -2,14 +2,14 @@
 /* .home-page {} Removed empty rule */
 
 .home-container {
-    padding: 2rem;
+    padding: 1.5rem var(--container-padding);
     max-width: 1300px;
     margin: 0 auto;
     min-height: 100vh;
 }
 
 .home-section-title {
-    margin: 0 0 2rem 0;
+    margin: 1.5rem 0;
     font-size: 2rem;
     color: #fff;
     border-left: 5px solid #ff4757;
@@ -17,62 +17,53 @@
     line-height: 1;
 }
 
-/* Base Grid Layout (Desktop) */
+/* Base Grid (Desktop) */
 .home-food-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    gap: 2.5rem;
     width: 100%;
-    align-items: stretch;
 }
 
 /* Tablet Layout */
 @media (max-width: 1024px) {
-    .home-container {
-        padding: 1.5rem;
-    }
-
     .home-food-grid {
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 1.5rem;
     }
-
-    .home-section-title {
-        font-size: 1.6rem;
-    }
 }
 
-/* Mobile Layout: STRICT 2 COLUMNS FOR MULTI-ROW WRAPPING */
+/* Mobile Alignment & Guaranteed Flow */
 @media (max-width: 768px) {
     .home-container {
-        padding: 1rem;
-    }
-
-    .home-food-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px;
+        padding: 1rem var(--container-padding-mobile);
     }
 
     .home-section-title {
         font-size: 1.3rem;
-        margin-bottom: 1.2rem;
+        margin: 1rem 0;
+    }
+
+    .home-food-grid {
+        display: flex !important;
+        /* Switch to flex on mobile for pixel-perfect wrapping */
+        flex-wrap: wrap !important;
+        gap: 10px;
+    }
+
+    .home-food-grid>* {
+        /* This GUARANTEES 2 columns (50%) regardless of screen width */
+        width: calc(50% - 5px);
+        min-width: 0;
+        /* Allow card to shrink below default min-width */
+        flex-shrink: 0;
     }
 }
 
 /* Very Small Mobile */
-@media (max-width: 400px) {
-    .home-container {
-        padding: 0.8rem;
-    }
-
-    .home-food-grid {
-        gap: 8px;
-    }
-}
-
-/* If screen is extremely tiny, move to 1 col */
-@media (max-width: 320px) {
-    .home-food-grid {
-        grid-template-columns: 1fr !important;
+@media (max-width: 350px) {
+    .home-food-grid>* {
+        width: 100%;
+        /* Single column only when truly too small */
     }
 }

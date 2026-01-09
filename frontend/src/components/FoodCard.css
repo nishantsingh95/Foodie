@@ -1,7 +1,7 @@
-.food-card {
+```css .food-card {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -12,15 +12,13 @@
 
 .food-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 71, 87, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .food-card-image-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 16/11;
-    /* Wide profile for better grid visibility */
+    aspect-ratio: 16 / 11;
     overflow: hidden;
 }
 
@@ -32,7 +30,7 @@
 }
 
 .food-card:hover .food-card-image {
-    transform: scale(1.08);
+    transform: scale(1.1);
 }
 
 .food-card-content {
@@ -40,13 +38,13 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 8px;
 }
 
 .food-card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 5px;
 }
 
 .food-card-title {
@@ -54,23 +52,23 @@
     font-size: 1.1rem;
     font-weight: 700;
     color: #fff;
-    flex: 1;
-    padding-right: 10px;
+    line-height: 1.2;
+    padding-right: 5px;
 }
 
 .food-card-price {
     color: #ff4757;
     font-weight: 800;
     font-size: 1.1rem;
+    white-space: nowrap;
 }
 
 .food-card-restaurant {
     color: #ffa502;
     font-size: 0.85rem;
-    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     opacity: 0.8;
 }
 
@@ -78,13 +76,12 @@
     color: #aaa;
     font-size: 0.85rem;
     line-height: 1.4;
-    margin-bottom: 15px;
-    flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    margin-bottom: 5px;
 }
 
 .food-card-footer {
@@ -98,7 +95,7 @@
 /* Mobile Responsive Polish */
 @media (max-width: 768px) {
     .food-card-content {
-        padding: 0.8rem;
+        padding: 0.7rem;
     }
 
     .food-card-title {
@@ -111,7 +108,6 @@
 
     .food-card-desc {
         display: none !important;
-        /* Hide for clean wrapping rows */
     }
 
     .food-card-footer {
@@ -130,10 +126,10 @@
 .food-card-qty-control {
     display: flex;
     align-items: center;
+    justify-content: center;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 2px;
-    justify-content: center;
 }
 
 .food-card-qty-btn {
