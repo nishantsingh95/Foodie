@@ -2,62 +2,77 @@
 /* .home-page {} Removed empty rule */
 
 .home-container {
-    padding: clamp(1rem, 3vw, 2rem);
-    max-width: 1400px;
+    padding: 1.5rem var(--container-padding);
+    max-width: 1300px;
     margin: 0 auto;
     min-height: 100vh;
 }
 
 .home-section-title {
-    margin-bottom: clamp(1rem, 3vw, 2rem);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: clamp(1.2rem, 4vw, 2rem);
+    margin: 1.5rem 0;
+    font-size: 2rem;
     color: #fff;
-    border-left: 4px solid #ff4757;
+    border-left: 5px solid #ff4757;
     padding-left: 15px;
+    line-height: 1;
 }
 
+/* Base Grid (Desktop) */
 .home-food-grid {
     display: grid;
-    /* This is the key: auto-fill with a minimum width that allows 2-col on small phones but multiple on laptops */
-    grid-template-columns: repeat(auto-fill, minmax(clamp(150px, 22vw, 300px), 1fr));
-    gap: clamp(10px, 3vw, 2.5rem);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
     width: 100%;
 }
 
-/* Specific Tablet/Mobile fine-tuning */
-@media (max-width: 480px) {
+/* Tablet Layout */
+@media (max-width: 1024px) {
+    .home-food-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+/* Mobile Alignment & Guaranteed Flow */
+@media (max-width: 768px) {
     .home-container {
+<<<<<<< HEAD
         padding: 1rem 10px;
     }
 
     .home-food-grid {
         /* Force 2 columns to ensure wrapping looks like premium apps */
         grid-template-columns: repeat(2, 1fr);
+=======
+        padding: 1rem var(--container-padding-mobile);
+    }
+
+    .home-section-title {
+        font-size: 1.3rem;
+        margin: 1rem 0;
+    }
+
+    .home-food-grid {
+        display: flex !important;
+        /* Switch to flex on mobile for pixel-perfect wrapping */
+        flex-wrap: wrap !important;
+>>>>>>> a673632f2f7c17ff36e56e7fffcc57cc61a7a46c
         gap: 10px;
+    }
+
+    .home-food-grid>* {
+        /* This GUARANTEES 2 columns (50%) regardless of screen width */
+        width: calc(50% - 5px);
+        min-width: 0;
+        /* Allow card to shrink below default min-width */
+        flex-shrink: 0;
     }
 }
 
-/* Item Card base styles (if used in Home directly) */
-.food-item-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    transition: transform 0.2s;
-}
-
-.food-item-card:hover {
-    transform: translateY(-5px);
-}
-
-.food-item-img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 10px;
+/* Very Small Mobile */
+@media (max-width: 350px) {
+    .home-food-grid>* {
+        width: 100%;
+        /* Single column only when truly too small */
+    }
 }

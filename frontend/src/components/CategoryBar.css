@@ -1,21 +1,16 @@
 .category-bar-container {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     overflow-x: auto;
-    padding: 1rem 0.5rem;
-    margin-bottom: 1.5rem;
+    padding: 1.5rem var(--container-padding);
     scrollbar-width: none;
-    /* Firefox */
     -ms-overflow-style: none;
-    /* IE/Edge */
     -webkit-overflow-scrolling: touch;
-    /* Smooth scrolling on iOS */
-    user-select: none;
+    width: 100%;
 }
 
 .category-bar-container::-webkit-scrollbar {
     display: none;
-    /* Chrome/Safari/Opera */
 }
 
 .category-btn {
@@ -44,20 +39,15 @@
     box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
 }
 
-/* Mobile adjustments */
 @media (max-width: 768px) {
     .category-bar-container {
-        padding: 1rem 0.5rem;
-        /* More vertical breathing room */
-        margin-bottom: 1.5rem;
+        padding: 1rem var(--container-padding-mobile);
+        gap: 8px;
     }
 
     .category-btn {
         padding: 10px 20px;
-        /* Bigger touch target */
         font-size: 1rem;
-        /* Readable text */
         border-radius: 25px;
-        /* Rounder */
     }
 }

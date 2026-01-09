@@ -6,6 +6,8 @@
   --card-bg: #2f3640;
   --accent: #ffa502;
   --font-family: 'Inter', sans-serif;
+  --container-padding: 2rem;
+  --container-padding-mobile: 1rem;
 }
 
 html,
