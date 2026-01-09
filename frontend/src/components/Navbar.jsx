@@ -97,6 +97,12 @@ const Navbar = ({ setSearchTerm }) => {
                         <div className="navbar-links">
                             {!isDelivery && <Link to="/" className="navbar-link" onClick={closeMobileMenu}>Home</Link>}
 
+                            {user && (
+                                <span className="navbar-link" style={{ cursor: 'pointer' }} onClick={() => { setShowProfileModal(true); closeMobileMenu(); }}>
+                                    My Profile
+                                </span>
+                            )}
+
                             {user && user.role === 'admin' && (
                                 <>
                                     <Link to="/admin" className="navbar-link" onClick={closeMobileMenu}>Owner Dashboard</Link>
