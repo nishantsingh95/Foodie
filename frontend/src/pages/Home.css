@@ -50,25 +50,23 @@
         padding-left: 15px;
     }
 
-    /* RESTORED HORIZONTAL SCROLLER */
+    /* VERTICAL WRAPPING GRID FOR MOBILE */
     .home-food-grid {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
         padding-bottom: 12px;
-        -webkit-overflow-scrolling: touch;
     }
 
     .home-food-grid::-webkit-scrollbar {
         display: none;
     }
 
-    /* EACH FOOD CARD IN SLIDER */
+    /* REMOVED FLEX PROPERTIES, CARDS NOW FIT GRID */
     .home-food-grid>* {
-        min-width: 70%;
-        flex-shrink: 0;
-        scroll-snap-align: start;
+        min-width: 0;
+        flex-shrink: 1;
+        scroll-snap-align: none;
     }
 }
 
