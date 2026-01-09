@@ -50,8 +50,10 @@ const Home = () => {
     }, [location, login, navigate]);
 
     useEffect(() => {
+        // Wait for user to be loaded (if we are waiting for auth check)
+        // If not logged in, user is null, we fetch public foods.
         fetchFoods();
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         filterFoods();
@@ -59,7 +61,16 @@ const Home = () => {
 
     const fetchFoods = async () => {
         try {
-            const res = await axios.get(`${API_URL}/api/food`);
+            let res;
+            if (user && user.role === 'admin') {
+                // If Admin, show ONLY their own foods
+                const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
+                res = await axios.get(`${API_URL}/api/food/myfoods`, config);
+            } else {
+                // If Public/User, show ALL foods
+                res = await axios.get(`${API_URL}/api/food`);
+            }
+
             const normalized = res.data.map(f => ({
                 ...f,
                 isVeg: f.isVeg !== undefined ? f.isVeg : true,
