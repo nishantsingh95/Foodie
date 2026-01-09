@@ -23,15 +23,16 @@ export const LocationProvider = ({ children }) => {
 
                     try {
                         // Reverse Geocoding with OpenStreetMap (Nominatim)
-                        const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10&addressdetails=1`);
+                        const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`);
 
                         const address = res.data.address;
-                        // Construct a more detailed address (Road, Area, City)
+                        // Construct a more detailed address (House/Building, Street, Area)
                         const detailedAddress = [
-                            address.road,
+                            address.house_number,
+                            address.building,
+                            address.road || address.street,
                             address.suburb || address.neighbourhood,
-                            address.city || address.town || address.village,
-                            address.state
+                            address.city || address.town
                         ].filter(Boolean).join(', ');
 
                         setLocation(detailedAddress || res.data.display_name);
