@@ -262,8 +262,8 @@ const DeliveryDashboard = () => {
                                             </span>
                                         </div>
                                         <div className="card-body">
-                                            <p><span className="card-label">Customer:</span> {order.user?.name}</p>
-                                            <p><span className="card-label">Address:</span> {order.deliveryLocation?.address || order.user?.address || 'Address not provided'}</p>
+                                            <p><span className="card-label">Pickup:</span> {order.restaurant || 'Foodie Kitchen'}</p>
+                                            <p><span className="card-label">Dropoff:</span> {order.deliveryLocation?.address || order.user?.address || 'Address not provided'}</p>
                                         </div>
 
                                         {/* Logic for Buttons based on flow */}
