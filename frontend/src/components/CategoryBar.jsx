@@ -2,19 +2,19 @@ import React from 'react';
 
 const categories = [
     { name: "All", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=200" },
-    { name: "Snacks", image: "https://images.unsplash.com/photo-1601050690597-df056fb04791?q=80&w=200" },
+    { name: "Snacks", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=200" },
     { name: "Main Course", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=200" },
     { name: "Desserts", image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?q=80&w=200" },
     { name: "Pizza", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=200" },
     { name: "Burgers", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=200" },
     { name: "Sandwiches", image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=200" },
-    { name: "Drinks", image: "https://images.unsplash.com/photo-1544145945-f904253db0ad?q=80&w=200" },
+    { name: "Drinks", image: "https://images.unsplash.com/photo-1581674210501-c760093410e3?q=80&w=200" },
     { name: "South Indian", image: "https://images.unsplash.com/photo-1630383249896-424e482df921?q=80&w=200" },
     { name: "North Indian", image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=200" },
     { name: "Chinese", image: "https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=200" },
-    { name: "Fast Food", image: "https://images.unsplash.com/photo-1534422298391-e4f8c170db0a?q=80&w=200" },
+    { name: "Fast Food", image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=200" },
     { name: "Cakes", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=200" },
-    { name: "Chole Bhature", image: "https://images.unsplash.com/photo-1589135304605-7174f4001ecf?q=80&w=200" },
+    { name: "Chole Bhature", image: "https://images.unsplash.com/photo-1626132646529-500637532537?q=80&w=200" },
     { name: "Patties", image: "https://images.unsplash.com/photo-1623653387945-2fd25214f8fc?q=80&w=200" },
     { name: "Momos", image: "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?q=80&w=200" }
 ];
