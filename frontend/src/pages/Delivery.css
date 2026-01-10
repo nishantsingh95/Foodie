@@ -10,10 +10,11 @@
     justify-content: space-between;
     align-items: center;
     padding: 2rem;
-    background: linear-gradient(to right, #2f3542, #3a4b5c);
+    background: var(--card-bg);
     border-radius: 15px;
     margin-bottom: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .welcome-text h1 {
@@ -44,7 +45,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--bg);
     padding: 10px 20px;
     border-radius: 10px;
 }
