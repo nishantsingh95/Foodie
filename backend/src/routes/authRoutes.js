@@ -22,7 +22,8 @@ router.get('/google/callback',
         const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, {
             expiresIn: '30d',
         });
-        res.redirect(`http://localhost:5173/?token=${token}`);
+        const frontendURL = process.env.FRONTEND_URL || 'https://fodieee.netlify.app';
+        res.redirect(`${frontendURL}/?token=${token}`);
     }
 );
 

@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import CategoryBar from '../components/CategoryBar';
 import FoodCard from '../components/FoodCard';
+import ShopCard from '../components/ShopCard';
 import Footer from '../components/Footer';
 import AuthContext from '../context/AuthContext';
 import { FaPlus } from 'react-icons/fa';
@@ -13,9 +14,12 @@ import './Home.css';
 import '../components/AdminFab.css';
 
 const Home = () => {
+    const [shops, setShops] = useState([]);
     const [foods, setFoods] = useState([]);
     const [filteredFoods, setFilteredFoods] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [view, setView] = useState('shops'); // 'shops' or 'menu'
+    const [selectedShop, setSelectedShop] = useState(null);
 
     // Search & Filter States
     const [searchTerm, setSearchTerm] = useState('');
@@ -33,14 +37,13 @@ const Home = () => {
         if (token && !tokenProcessed.current) {
             tokenProcessed.current = true;
 
-            // Verify token and get user data
             axios.get(`${API_URL}/api/auth/profile`, {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then(res => {
                     login({ ...res.data, token });
                     toast.success('Login successful via Google!');
-                    navigate('/'); // Clean URL
+                    navigate('/');
                 })
                 .catch(err => {
                     console.error(err);
@@ -51,34 +54,41 @@ const Home = () => {
     }, [location, login, navigate]);
 
     useEffect(() => {
-        // Wait for user to be loaded (if we are waiting for auth check)
-        // If not logged in, user is null, we fetch public foods.
-        fetchFoods();
-    }, [user]);
+        if (view === 'shops') {
+            fetchShops();
+        }
+    }, [view, user]);
 
     useEffect(() => {
         filterFoods();
     }, [searchTerm, selectedCategory, foods]);
 
-    const fetchFoods = async () => {
+    const fetchShops = async () => {
+        setLoading(true);
         try {
-            let res;
-            if (user && user.role === 'admin') {
-                // If Admin, show ONLY their own foods
-                const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } };
-                res = await axios.get(`${API_URL}/api/food/myfoods`, config);
-            } else {
-                // If Public/User, show ALL foods
-                res = await axios.get(`${API_URL}/api/food`);
-            }
+            const res = await axios.get(`${API_URL}/api/shop/all`);
+            setShops(res.data);
+            setLoading(false);
+        } catch (err) {
+            console.error(err);
+            setLoading(false);
+        }
+    };
 
+    const fetchFoodsByShop = async (shop) => {
+        setLoading(true);
+        try {
+            const res = await axios.get(`${API_URL}/api/food/shop/${shop.user}`);
             const normalized = res.data.map(f => ({
                 ...f,
                 isVeg: f.isVeg !== undefined ? f.isVeg : true,
                 rating: f.rating || 4.5,
-                restaurant: f.restaurant || 'Foodie Kitchen'
+                restaurant: f.restaurant || shop.name
             }));
             setFoods(normalized);
+            setFilteredFoods(normalized);
+            setSelectedShop(shop);
+            setView('menu');
             setLoading(false);
         } catch (err) {
             console.error(err);
@@ -88,45 +98,65 @@ const Home = () => {
 
     const filterFoods = () => {
         let result = foods;
-
-        // Filter by Category
         if (selectedCategory !== 'All') {
             result = result.filter(food => food.category === selectedCategory);
         }
-
-        // Filter by Search
         if (searchTerm) {
             result = result.filter(food =>
                 food.name.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
-
         setFilteredFoods(result);
     }
 
+    const backToShops = () => {
+        setView('shops');
+        setSelectedShop(null);
+        setFoods([]);
+        setFilteredFoods([]);
+        setSelectedCategory('All');
+    };
+
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg)' }}>
             <Navbar setSearchTerm={setSearchTerm} />
 
             <div className="home-container">
                 <CategoryBar selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
 
-                {/* Best Shops Section */}
-
-                <h2 className="home-section-title">
-                    {selectedCategory === 'All' ? 'Suggested Items' : selectedCategory}
-                </h2>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                    <h2 className="home-section-title" style={{ margin: 0 }}>
+                        {view === 'shops' ? 'All Restaurants' : `${selectedShop?.name}'s Menu`}
+                    </h2>
+                    {view === 'menu' && (
+                        <button id="back-to-shops-btn" onClick={backToShops} className="nav-link-item" style={{ background: 'var(--primary)', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '8px', cursor: 'pointer' }}>
+                            Back to Restaurants
+                        </button>
+                    )}
+                </div>
 
                 {loading ? (
-                    <p style={{ color: '#aaa', textAlign: 'center' }}>Loading tasty food...</p>
+                    <p style={{ color: 'var(--text)', textAlign: 'center', opacity: 0.6 }}>Loading...</p>
                 ) : (
-                    <div className="home-food-grid">
-                        {filteredFoods.length > 0 ? filteredFoods.map((food) => (
-                            <FoodCard key={food._id} food={food} />
-                        )) : (
-                            <p style={{ gridColumn: 'span 3', textAlign: 'center', color: '#aaa' }}>No food items found.</p>
+                    <>
+                        {view === 'shops' ? (
+                            <div className="home-food-grid">
+                                {shops.length > 0 ? shops.map((shop) => (
+                                    <ShopCard key={shop._id} shop={shop} onClick={() => fetchFoodsByShop(shop)} />
+                                )) : (
+                                    <p style={{ gridColumn: 'span 5', textAlign: 'center', color: 'var(--text)', opacity: 0.6 }}>No restaurants found.</p>
+                                )}
+                            </div>
+                        ) : (
+                            <div className="home-food-grid">
+                                {filteredFoods.length > 0 ? filteredFoods.map((food) => (
+                                    <FoodCard key={food._id} food={food} />
+                                )) : (
+                                    <p style={{ gridColumn: 'span 5', textAlign: 'center', color: 'var(--text)', opacity: 0.6 }}>No food items found in this category.</p>
+                                )}
+                            </div>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
 

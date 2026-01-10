@@ -113,4 +113,16 @@ const updateFood = async (req, res) => {
     }
 };
 
-module.exports = { getFoods, getMyFoods, addFood, deleteFood, updateFood };
+// @desc    Get foods by shop owner ID
+// @route   GET /api/food/shop/:id
+// @access  Public
+const getFoodsByShop = async (req, res) => {
+    try {
+        const foods = await Food.find({ owner: req.params.id });
+        res.json(foods);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { getFoods, getMyFoods, addFood, deleteFood, updateFood, getFoodsByShop };

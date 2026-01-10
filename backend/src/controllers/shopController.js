@@ -54,4 +54,16 @@ const updateShop = async (req, res) => {
     }
 };
 
-module.exports = { getShop, updateShop };
+// @desc    Get all shops (Public)
+// @route   GET /api/shop/all
+// @access  Public
+const getAllShops = async (req, res) => {
+    try {
+        const shops = await Shop.find({});
+        res.json(shops);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { getShop, updateShop, getAllShops };

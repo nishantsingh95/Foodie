@@ -1,14 +1,35 @@
 :root {
   --primary: #ff4757;
   --secondary: #2f3542;
-  --text: #ffffff;
-  --bg: #1e272e;
-  --card-bg: #2f3640;
   --accent: #ffa502;
   --font-family: 'Inter', sans-serif;
   --container-padding: 2rem;
   --container-padding-mobile: 1rem;
+
+  /* Default Dark Theme Variables */
+  --text: #ffffff;
+  --bg: #1e272e;
+  --card-bg: #2f3640;
+  --border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(47, 54, 64, 0.6);
 }
+
+.light-theme {
+  --text: #2f3542;
+  --bg: #f5f6fa;
+  --card-bg: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+}
+
+.dark-theme {
+  --text: #ffffff;
+  --bg: #1e272e;
+  --card-bg: #2f3640;
+  --border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(47, 54, 64, 0.6);
+}
+
 
 html,
 body,
@@ -37,11 +58,10 @@ button {
 
 /* Glassmorphism utility */
 .glass {
-  background: rgba(47, 54, 64, 0.6);
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border: 1px solid var(--border);
   border-radius: 12px;
 }
 

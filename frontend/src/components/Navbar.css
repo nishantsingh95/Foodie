@@ -1,11 +1,12 @@
 .navbar {
-    background: rgba(18, 26, 30, 0.95);
+    background: var(--bg);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    color: #fff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
+    transition: background 0.3s, color 0.3s;
     z-index: 1000;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     height: 75px;
@@ -126,7 +127,7 @@
 .navbar-search-input {
     background: none;
     border: none;
-    color: #fff;
+    color: var(--text);
     padding: 10px 0;
     width: 100%;
     outline: none;
@@ -165,7 +166,7 @@
 
 .utility-btn {
     position: relative;
-    color: #fff;
+    color: var(--text);
     font-size: 1.2rem;
     cursor: pointer;
     display: flex;
@@ -201,7 +202,7 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4);
-    border: 2px solid #121a1e;
+    border: 2px solid var(--bg);
 }
 
 .logout-btn {

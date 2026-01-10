@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import CartContext from '../context/CartContext';
 import LocationContext from '../context/LocationContext';
-import { FaShoppingCart, FaUser, FaSignOutAlt, FaSearch, FaMapMarkerAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaSignOutAlt, FaSearch, FaMapMarkerAlt, FaBars, FaTimes, FaSun, FaMoon } from 'react-icons/fa';
 import './Navbar.css';
 
 import UserProfileModal from './UserProfileModal';
@@ -15,7 +15,17 @@ const Navbar = ({ setSearchTerm }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [searchInput, setSearchInput] = useState('');
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
     const navigate = useNavigate();
+
+    React.useEffect(() => {
+        document.body.className = theme === 'light' ? 'light-theme' : 'dark-theme';
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    };
 
     const handleLogout = () => {
         logout();
@@ -98,6 +108,10 @@ const Navbar = ({ setSearchTerm }) => {
                                     <FaUser />
                                 </Link>
                             )}
+
+                            <div className="utility-btn theme-toggle" onClick={toggleTheme} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+                                {theme === 'light' ? <FaMoon /> : <FaSun />}
+                            </div>
 
                             {user && (
                                 <button onClick={handleLogout} className="utility-btn logout-btn" title="Logout">
