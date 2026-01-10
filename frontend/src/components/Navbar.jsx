@@ -11,7 +11,7 @@ import UserProfileModal from './UserProfileModal';
 const Navbar = ({ setSearchTerm }) => {
     const { user, logout } = useContext(AuthContext);
     const { cartItems } = useContext(CartContext);
-    const { userLocation, openLocationModal } = useContext(LocationContext);
+    const { location, openLocationModal } = useContext(LocationContext);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [searchInput, setSearchInput] = useState('');
@@ -44,9 +44,9 @@ const Navbar = ({ setSearchTerm }) => {
                             <span className="navbar-logo-emoji">🍔</span>
                             <span className="navbar-logo-text">Foodie</span>
                         </Link>
-                        <div className="navbar-location" onClick={() => { openLocationModal(); }} title={userLocation || "Click to change location"}>
+                        <div className="navbar-location" onClick={() => { openLocationModal(); }} title={location || "Click to change location"}>
                             <FaMapMarkerAlt className="location-icon" />
-                            <span className="location-text">{userLocation || 'Locating...'}</span>
+                            <span className="location-text">{location || 'Locating...'}</span>
                         </div>
                     </div>
 

@@ -23,7 +23,12 @@ export const LocationProvider = ({ children }) => {
 
                     try {
                         // Reverse Geocoding with OpenStreetMap (Nominatim)
-                        const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`);
+                        // Adding User-Agent as required by Nominatim Usage Policy
+                        const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`, {
+                            headers: {
+                                'User-Agent': 'FoodieApp/1.0 (LocationDetection)'
+                            }
+                        });
 
                         const address = res.data.address;
                         // Construct a more detailed address (House/Building, Street, Area)
@@ -35,10 +40,10 @@ export const LocationProvider = ({ children }) => {
                             address.city || address.town
                         ].filter(Boolean).join(', ');
 
-                        setLocation(detailedAddress || res.data.display_name);
+                        setLocation(detailedAddress || res.data.display_name || "Location Found");
                     } catch (error) {
                         console.error("Reverse geocoding failed", error);
-                        setLocation(`${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
+                        setLocation(`Location: ${latitude.toFixed(4)}, ${longitude.toFixed(4)}`);
                     } finally {
                         setLoading(false);
                     }
