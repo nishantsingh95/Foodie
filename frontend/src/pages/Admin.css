@@ -97,13 +97,14 @@
     border: none;
     background-color: var(--card-bg);
     color: var(--text);
+    border: 1px solid var(--border);
     font-size: 1rem;
     width: 100%;
 }
 
 .admin-input:focus {
     outline: 2px solid #ffa502;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--bg);
 }
 
 .full-width {
@@ -118,7 +119,7 @@
 
 .save-btn {
     padding: 12px 24px;
-    background-color: #ffa502;
+    background-color: var(--accent);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -151,7 +152,7 @@
     height: 150px;
     border-radius: 12px;
     object-fit: cover;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--border);
 }
 
 .shop-details h2 {
