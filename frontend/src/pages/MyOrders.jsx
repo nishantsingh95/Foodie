@@ -44,7 +44,7 @@ const MyOrders = () => {
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
             <div className="my-orders-container">
-                <h1 style={{ color: '#fff', marginBottom: '2rem', textAlign: 'center' }}>My Orders</h1>
+                <h1 style={{ color: 'var(--text)', marginBottom: '2rem', textAlign: 'center' }}>My Orders</h1>
                 <div className="orders-grid">
                     {orders.length > 0 ? (
                         orders.map((order) => (
@@ -65,8 +65,8 @@ const MyOrders = () => {
                                     ))}
                                 </div>
 
-                                <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px', marginTop: '10px' }}>
-                                    <p style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', color: '#fff' }}>
+                                <div style={{ borderTop: '1px solid var(--border)', paddingTop: '10px', marginTop: '10px' }}>
+                                    <p style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', color: 'var(--text)' }}>
                                         <span>Total Amount:</span>
                                         <span>₹{order.totalPrice}</span>
                                     </p>

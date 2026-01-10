@@ -67,15 +67,15 @@ const styles = {
         animation: 'fadeIn 0.3s ease',
     },
     modal: {
-        background: 'linear-gradient(145deg, #1e272e, #2f3542)',
+        background: 'var(--card-bg)',
         width: '90%',
         maxWidth: '380px',
         borderRadius: '20px',
-        color: '#fff',
+        color: 'var(--text)',
         boxShadow: '0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(255, 71, 87, 0.2)',
         overflow: 'visible',
         position: 'relative',
-        border: '1px solid rgba(255,255,255,0.05)',
+        border: '1px solid var(--border)',
         animation: 'slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
     },
     closeBtn: {
@@ -84,7 +84,7 @@ const styles = {
         right: '15px',
         background: 'rgba(255,255,255,0.1)',
         border: 'none',
-        color: '#fff',
+        color: 'var(--text)',
         fontSize: '1rem',
         cursor: 'pointer',
         width: '32px',
@@ -108,7 +108,7 @@ const styles = {
     avatarWrapper: {
         marginBottom: '-40px',
         padding: '5px',
-        background: '#1e272e', // Match modal bg
+        background: 'var(--bg)', // Match modal bg
         borderRadius: '50%',
     },
     avatar: {
@@ -133,7 +133,7 @@ const styles = {
         letterSpacing: '0.5px',
     },
     userRole: {
-        color: '#aaa',
+        color: 'var(--text)',
         fontSize: '0.95rem',
         display: 'flex',
         alignItems: 'center',
@@ -155,10 +155,10 @@ const styles = {
     infoRow: {
         display: 'flex',
         alignItems: 'center',
-        backgroundColor: 'rgba(255,255,255,0.03)',
+        backgroundColor: 'var(--bg)',
         padding: '12px',
         borderRadius: '12px',
-        border: '1px solid rgba(255,255,255,0.05)',
+        border: '1px solid var(--border)',
         transition: 'background 0.2s',
     },
     iconBox: {
@@ -185,7 +185,7 @@ const styles = {
     },
     value: {
         fontSize: '1rem',
-        color: '#fff',
+        color: 'var(--text)',
         fontWeight: '500',
         margin: 0,
         wordBreak: 'break-all', // Handle long emails

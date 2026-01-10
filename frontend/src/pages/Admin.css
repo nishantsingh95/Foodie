@@ -16,7 +16,7 @@
 
 .admin-title {
     margin: 0;
-    color: #fff;
+    color: var(--text);
 }
 
 .admin-header-actions {
@@ -81,7 +81,7 @@
 
 .admin-form-title {
     margin-bottom: 1.5rem;
-    color: #ffa502;
+    color: var(--accent);
     font-size: 1.5rem;
 }
 
@@ -95,8 +95,8 @@
     padding: 12px;
     border-radius: 8px;
     border: none;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background-color: var(--card-bg);
+    color: var(--text);
     font-size: 1rem;
     width: 100%;
 }
@@ -155,7 +155,7 @@
 }
 
 .shop-details h2 {
-    color: #ffa502;
+    color: var(--accent);
     margin: 0 0 0.5rem 0;
 }
 
@@ -198,7 +198,8 @@
 }
 
 .food-desc {
-    color: #aaa;
+    color: var(--text);
+    opacity: 0.7;
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
     flex: 1;
@@ -214,13 +215,13 @@
     align-items: center;
     margin-top: auto;
     padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--border);
 }
 
 .food-price {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #ffa502;
+    color: var(--accent);
 }
 
 .food-actions {
@@ -292,10 +293,10 @@
 }
 
 .order-card-db {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
     /* Glass effect base */
     padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
     border-radius: 12px;
 }
 
@@ -303,7 +304,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border);
     padding-bottom: 0.5rem;
     flex-wrap: wrap;
     /* responsive wrap */
@@ -319,7 +320,8 @@
 .order-user-info {
     margin: 0;
     font-size: 0.9rem;
-    color: #ccc;
+    color: var(--text);
+    opacity: 0.8;
 }
 
 .order-price-db {

@@ -207,7 +207,7 @@ const AdminDashboard = () => {
     if (!user || user.role !== 'admin') return <AccessDenied />;
 
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: '#1e272e' }}>
+        <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
             <Navbar setSearchTerm={setSearchTerm} />
             <div className="admin-dashboard">
                 <div className="admin-header">
@@ -403,7 +403,7 @@ const AdminDashboard = () => {
                 {shop && (
                     <>
                         <div style={{ marginBottom: '1.5rem' }}>
-                            <h2 style={{ margin: 0, color: '#fff' }}>{searchTerm ? `Search Results for "${searchTerm}"` : 'Manage Food Items'}</h2>
+                            <h2 style={{ margin: 0, color: 'var(--text)' }}>{searchTerm ? `Search Results for "${searchTerm}"` : 'Manage Food Items'}</h2>
                         </div>
                         <div className="food-grid">
                             {foods.filter(food =>

@@ -171,11 +171,11 @@ const DeliveryDashboard = () => {
     const activeDeliveries = myOrders.filter(o => ['Driver Assigned', 'Out for Delivery', 'Delivered'].includes(o.status));
     const completedHistory = myOrders.filter(o => o.status === 'Completed');
 
-    if (loading) return <div style={{ minHeight: '100vh', backgroundColor: '#1e272e', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>;
+    if (loading) return <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg)', color: 'var(--text)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>;
     if (!user || user.role !== 'delivery') return <AccessDenied />;
 
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: '#1e272e', color: '#fff', paddingBottom: '2rem' }}>
+        <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg)', color: 'var(--text)', paddingBottom: '2rem' }}>
             <Navbar />
             <div className="delivery-dashboard">
 
@@ -338,7 +338,7 @@ const getStatusColor = (status) => {
         case 'Out for Delivery': return '#1e90ff';
         case 'Delivered':
         case 'Completed': return '#2ed573';
-        default: return '#fff';
+        default: return 'var(--text)';
     }
 };
 

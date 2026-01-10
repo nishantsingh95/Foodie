@@ -83,7 +83,7 @@ const AdminOrders = () => {
     if (!user || user.role !== 'admin') return <AccessDenied />;
 
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: '#1e272e', color: '#fff' }}>
+        <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg)', color: 'var(--text)' }}>
             <Navbar />
             <div className="admin-dashboard">
                 <h1 className="admin-title" style={{ marginBottom: '2rem', color: '#ffa502' }}>All Customer Orders</h1>
@@ -100,7 +100,7 @@ const AdminOrders = () => {
                                     <div>
                                         <h3 className="order-id-db">Order #{order._id.substring(0, 8)}</h3>
                                         <p className="order-user-info">
-                                            Placed by: <span style={{ color: '#fff' }}>{order.user?.name || 'Unknown'}</span> on {new Date(order.createdAt).toLocaleDateString()}
+                                            Placed by: <span style={{ color: 'var(--text)' }}>{order.user?.name || 'Unknown'}</span> on {new Date(order.createdAt).toLocaleDateString()}
                                         </p>
                                     </div>
                                     <div style={{ textAlign: 'right' }}>

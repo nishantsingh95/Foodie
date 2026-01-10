@@ -23,18 +23,18 @@ const AccessDenied = () => {
 const styles = {
     container: {
         height: '100vh',
-        backgroundColor: '#1e272e',
+        backgroundColor: 'var(--bg)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        color: '#fff',
+        color: 'var(--text)',
     },
     content: {
         textAlign: 'center',
-        backgroundColor: 'rgba(255,255,255,0.05)',
+        backgroundColor: 'var(--card-bg)',
         padding: '3rem',
         borderRadius: '20px',
-        border: '1px solid rgba(255,255,255,0.1)',
+        border: '1px solid var(--border)',
         boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
         maxWidth: '400px',
         width: '90%',
@@ -45,7 +45,7 @@ const styles = {
         color: '#ff4757',
     },
     message: {
-        color: '#ccc',
+        color: 'var(--text)',
         marginBottom: '2rem',
         lineHeight: '1.6',
     },

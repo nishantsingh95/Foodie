@@ -9,13 +9,14 @@
 .tracking-title {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    color: #fff;
+    color: var(--text);
     text-align: center;
 }
 
 .tracking-order-id {
     text-align: center;
-    color: #aaa;
+    color: var(--text);
+    opacity: 0.7;
     margin-bottom: 2rem;
     font-size: 1rem;
 }
@@ -34,7 +35,7 @@
 .section-title {
     margin: 0 0 1.5rem 0;
     font-size: 1.5rem;
-    color: #fff;
+    color: var(--text);
     display: flex;
     align-items: center;
 }
@@ -42,9 +43,10 @@
 .location-info {
     margin-top: 1rem;
     padding: 0.75rem;
-    background: rgba(255, 165, 2, 0.1);
+    background: var(--card-bg);
+    /* Or specific accent bg */
     border-radius: 8px;
-    color: #ffa502;
+    color: var(--accent);
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -116,40 +118,41 @@
 .delivery-info-section {
     margin-top: 2rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--border);
 }
 
 .details-title {
     margin: 0 0 1rem 0;
     font-size: 1.2rem;
-    color: #fff;
+    color: var(--text);
 }
 
 .order-detail-item {
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 0;
-    color: #aaa;
+    color: var(--text);
+    opacity: 0.7;
 }
 
 .total-row {
     display: flex;
     justify-content: space-between;
     padding: 1rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    marginTop: 0.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.5rem;
 }
 
 .total-label {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #fff;
+    color: var(--text);
 }
 
 .total-price {
     font-size: 1.3rem;
     font-weight: bold;
-    color: #ffa502;
+    color: var(--accent);
 }
 
 .delivery-person-card {
@@ -157,7 +160,7 @@
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
     border-radius: 10px;
 }
 
@@ -174,13 +177,14 @@
 .delivery-person-name {
     margin: 0 0 0.25rem 0;
     font-size: 1.1rem;
-    color: #fff;
+    color: var(--text);
 }
 
 .delivery-person-phone {
     margin: 0;
     font-size: 0.9rem;
-    color: #aaa;
+    color: var(--text);
+    opacity: 0.7;
     display: flex;
     align-items: center;
 }
@@ -208,10 +212,10 @@
 }
 
 .order-card {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--card-bg);
     border-radius: 12px;
     padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
     transition: transform 0.2s;
 }
 
@@ -224,7 +228,7 @@
     justify-content: space-between;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--border);
 }
 
 .order-status {
@@ -240,7 +244,8 @@
 }
 
 .order-items-list p {
-    color: #ccc;
+    color: var(--text);
+    opacity: 0.8;
     margin: 0.25rem 0;
 }
 
