@@ -8,13 +8,13 @@ const categories = [
     { name: "Pizza", image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=200" },
     { name: "Burgers", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=200" },
     { name: "Sandwiches", image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?q=80&w=200" },
-    { name: "Drinks", image: "https://images.unsplash.com/photo-1544145945-befb358a7330?q=80&w=200" },
+    { name: "Drinks", image: "https://images.unsplash.com/photo-1527960471264-932f39eb5846?q=80&w=200" },
     { name: "South Indian", image: "https://images.unsplash.com/photo-1630383249896-424e482df921?q=80&w=200" },
     { name: "North Indian", image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=200" },
     { name: "Chinese", image: "https://images.unsplash.com/photo-1525755662778-989d0524087e?q=80&w=200" },
     { name: "Fast Food", image: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?q=80&w=200" },
     { name: "Cakes", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=200" },
-    { name: "Chole Bhature", image: "https://images.unsplash.com/photo-1601050638917-3d076099dec3?q=80&w=200" },
+    { name: "Chole Bhature", image: "https://images.unsplash.com/photo-1710091691802-7dedb8af9a77?q=80&w=200" },
     { name: "Patties", image: "https://images.unsplash.com/photo-1623653387945-2fd25214f8fc?q=80&w=200" },
     { name: "Momos", image: "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?q=80&w=200" }
 ];
