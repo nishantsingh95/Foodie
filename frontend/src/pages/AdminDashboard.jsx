@@ -264,7 +264,7 @@ const AdminDashboard = () => {
                         <div className="shop-details">
                             <h2>{shop.name}</h2>
                             <p>{shop.address}, {shop.city}, {shop.state}</p>
-                            <p style={{ color: '#aaa', fontSize: '0.9rem' }}>This information will be displayed to users.</p>
+                            <p style={{ color: 'var(--text)', opacity: 0.7, fontSize: '0.9rem' }}>This information will be displayed to users.</p>
                         </div>
                     </div>
                 )}
@@ -272,7 +272,7 @@ const AdminDashboard = () => {
                 {/* --- Add Food Section --- */}
                 {shop && !searchTerm && (
                     <div className={`glass admin-form-container ${showAddFood ? '' : 'hidden'}`} style={{ display: showAddFood ? 'block' : 'none' }}>
-                        <h2 className="admin-form-title" style={{ color: '#ff4757' }}>{editFoodId ? 'Edit Food Item' : 'Add New Food Item'}</h2>
+                        <h2 className="admin-form-title" style={{ color: 'var(--accent)' }}>{editFoodId ? 'Edit Food Item' : 'Add New Food Item'}</h2>
                         <form onSubmit={handleFoodSubmit} className="admin-form">
                             <input type="text" name="name" placeholder="Food Name" value={foodForm.name} onChange={handleFoodChange} required className="admin-input" />
 
@@ -292,7 +292,7 @@ const AdminDashboard = () => {
 
                             <input type="number" name="price" placeholder="Price" value={foodForm.price} onChange={handleFoodChange} required className="admin-input" />
                             <div className="admin-input-group" style={{ marginBottom: '1rem' }}>
-                                <label style={{ color: '#ccc', display: 'block', marginBottom: '5px' }}>Food Image</label>
+                                <label style={{ color: 'var(--text)', opacity: 0.8, display: 'block', marginBottom: '5px' }}>Food Image</label>
                                 <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
                                     <input
                                         type="text"
@@ -304,7 +304,7 @@ const AdminDashboard = () => {
                                         style={{ flex: 1 }}
                                     />
                                     <div style={{ position: 'relative', overflow: 'hidden', display: 'inline-block' }}>
-                                        <button type="button" className="admin-action-btn" style={{ padding: '12px', background: '#444' }}>
+                                        <button type="button" className="admin-action-btn" style={{ padding: '12px', background: 'var(--secondary)' }}>
                                             Upload
                                         </button>
                                         <input
@@ -324,7 +324,7 @@ const AdminDashboard = () => {
                                 {uploading && <p style={{ color: '#ffa502', fontSize: '0.9rem' }}>Uploading image...</p>}
                             </div>
 
-                            <div className="admin-input" style={{ display: 'flex', alignItems: 'center', gap: '15px', color: '#ccc', flexWrap: 'wrap' }}>
+                            <div className="admin-input" style={{ display: 'flex', alignItems: 'center', gap: '15px', color: 'var(--text)', flexWrap: 'wrap' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                                     <label style={{ fontWeight: 'bold' }}>Type:</label>
                                     <label style={{ display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' }}>
@@ -366,7 +366,7 @@ const AdminDashboard = () => {
 
                             {/* Star Rating Input */}
                             <div className="admin-input" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                <span style={{ color: '#ccc' }}>Rating:</span>
+                                <span style={{ color: 'var(--text)', opacity: 0.8 }}>Rating:</span>
                                 <div style={{ display: 'flex', cursor: 'pointer' }}>
                                     {[1, 2, 3, 4, 5].map((star) => (
                                         <FaStar
@@ -383,7 +383,7 @@ const AdminDashboard = () => {
                                     name="rating"
                                     value={foodForm.rating}
                                     onChange={handleFoodChange}
-                                    style={{ width: '60px', padding: '5px', marginLeft: '10px', background: 'transparent', border: '1px solid #444', color: '#fff', borderRadius: '4px' }}
+                                    style={{ width: '60px', padding: '5px', marginLeft: '10px', background: 'var(--card-bg)', border: '1px solid var(--border)', color: 'var(--text)', borderRadius: '4px' }}
                                     min="1"
                                     max="5"
                                     step="0.1"
@@ -434,7 +434,7 @@ const AdminDashboard = () => {
                                         </div>
                                         <p className="food-desc">{food.description}</p>
 
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: '#ccc', marginBottom: '1rem' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text)', opacity: 0.7, marginBottom: '1rem' }}>
                                             <span>🏠 {food.restaurant || 'Shop'}</span>
                                             <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#ffd700' }}>
                                                 {food.rating} <FaStar size={12} />
