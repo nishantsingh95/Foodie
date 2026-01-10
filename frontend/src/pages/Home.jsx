@@ -67,10 +67,11 @@ const Home = () => {
         setLoading(true);
         try {
             const res = await axios.get(`${API_URL}/api/shop/all`);
+            console.log("Fetched Shops:", res.data);
             setShops(res.data);
             setLoading(false);
         } catch (err) {
-            console.error(err);
+            console.error("Error fetching shops:", err);
             setLoading(false);
         }
     };
