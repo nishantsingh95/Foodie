@@ -2,10 +2,15 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
 
+const BACKEND_URL = process.env.BACKEND_URL || "https://foodie-backend-2bpt.onrender.com"; // Default to prod if env missing, or "http://localhost:5000" for local
+// Use explicit production URL if we are in production environment (typically implies NODE_ENV=production)
+// However, safest is to trust the environment variable or fallback to a hardcoded prod string if we suspect env issues.
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/api/auth/google/callback",
+    // Use an absolute URL to avoid protocol ambiguity (http vs https)
+    callbackURL: `${BACKEND_URL}/api/auth/google/callback`,
     proxy: true
 },
     async (accessToken, refreshToken, profile, done) => {

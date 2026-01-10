@@ -52,8 +52,6 @@ body {
 
 .app-container {
   min-height: 100vh;
-  padding-top: 80px;
-  /* Offset for fixed navbar */
 }
 
 button {
@@ -75,11 +73,6 @@ button {
 }
 
 @media (max-width: 768px) {
-  /* body {
-    font-size: 14px;
-  } Removed to improve readability */
-
-
   h1 {
     font-size: 1.8rem;
   }
@@ -104,10 +97,5 @@ button {
 @media (max-width: 768px) {
   .page-container {
     padding: 1rem;
-  }
-
-  .app-container {
-    padding-top: 155px;
-    /* Offset for multi-row mobile navbar */
   }
 }

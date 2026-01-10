@@ -251,6 +251,19 @@ body.dark-theme .navbar {
     display: none;
 }
 
+/* Spacer to prevent overlap */
+.navbar-spacer {
+    height: 80px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .navbar-spacer {
+        height: 155px;
+        /* Matches the mobile navbar and padding offset */
+    }
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
     .navbar-links-desktop {

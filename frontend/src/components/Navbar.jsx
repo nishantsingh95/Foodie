@@ -48,7 +48,9 @@ const Navbar = ({ setSearchTerm }) => {
     return (
         <>
             <nav className="navbar">
+                {/* ... existing navbar code ... */}
                 <div className="navbar-container">
+                    {/* ... container content ... */}
                     <div className="navbar-logo-container">
                         <Link to={isDelivery ? "/delivery" : "/"} className="navbar-link-logo" onClick={closeMobileMenu}>
                             <span className="navbar-logo-emoji">🍔</span>
@@ -148,6 +150,8 @@ const Navbar = ({ setSearchTerm }) => {
                     </div>
                 </div>
             </nav>
+            {/* Spacer to prevent content overlap with fixed navbar */}
+            <div className="navbar-spacer"></div>
             {showProfileModal && (
                 <UserProfileModal user={user} onClose={() => setShowProfileModal(false)} />
             )}
