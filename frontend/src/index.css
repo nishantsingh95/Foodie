@@ -105,4 +105,9 @@ button {
   .page-container {
     padding: 1rem;
   }
+
+  .app-container {
+    padding-top: 155px;
+    /* Offset for multi-row mobile navbar */
+  }
 }

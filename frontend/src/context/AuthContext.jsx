@@ -7,14 +7,38 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-        setLoading(false);
+        const initAuth = () => {
+            try {
+                const storedUser = localStorage.getItem('user');
+                const storedToken = localStorage.getItem('token');
+
+                if (storedUser && storedToken) {
+                    const userData = JSON.parse(storedUser);
+                    // Ensure the user object in state has the latest token
+                    setUser({ ...userData, token: storedToken });
+                } else if (storedUser || storedToken) {
+                    // Cleanup if only one exists (incosistent state)
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('token');
+                    setUser(null);
+                }
+            } catch (err) {
+                console.error("Auth initialization error:", err);
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        initAuth();
     }, []);
 
     const login = (userData) => {
+        if (!userData || !userData.token) {
+            console.error("Invalid login data:", userData);
+            return;
+        }
         setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
         localStorage.setItem('token', userData.token);
