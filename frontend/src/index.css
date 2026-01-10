@@ -12,14 +12,16 @@
   --card-bg: #2f3640;
   --border: rgba(255, 255, 255, 0.1);
   --glass-bg: rgba(47, 54, 64, 0.6);
+  --primary-hover: #ff6b81;
 }
 
 .light-theme {
-  --text: #2f3542;
-  --bg: #f5f6fa;
+  --text: #2d3436;
+  --bg: #f8f9fa;
   --card-bg: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
-  --glass-bg: rgba(255, 255, 255, 0.7);
+  --border: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --primary-hover: #ff6b81;
 }
 
 .dark-theme {
@@ -50,6 +52,8 @@ body {
 
 .app-container {
   min-height: 100vh;
+  padding-top: 80px;
+  /* Offset for fixed navbar */
 }
 
 button {

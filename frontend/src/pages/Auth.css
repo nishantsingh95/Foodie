@@ -13,7 +13,7 @@
     width: 100%;
     max-width: 400px;
     padding: 2rem;
-    color: #fff;
+    color: var(--text);
     position: relative;
     /* Glassmorphism from index.css class 'glass' will handle background/border */
 }
@@ -32,7 +32,7 @@
 .auth-label {
     display: block;
     margin-bottom: 5px;
-    color: #fff;
+    color: var(--text);
     font-weight: 500;
 }
 
