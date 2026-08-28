@@ -8,8 +8,7 @@
 
 **Foodie** is a feature-rich, full-stack food delivery application built with the MERN stack (MongoDB, Express, React, Node.js) featuring real-time order tracking with Leaflet maps, multi-role access control (Customer, Restaurant Owner, Delivery Partner), and dynamic cart & checkout management.
 
-🌐 **Live Demo:** [https://fodieee.netlify.app/](https://fodieee.netlify.app/)  
-⚙️ **Backend API:** [https://foodie-backend-2bpt.onrender.com](https://foodie-backend-2bpt.onrender.com)
+🌐 **Live Demo:** [https://fodieee.netlify.app/](https://fodieee.netlify.app/)
 
 ---
 
@@ -37,12 +36,12 @@
 - **Framework:** React 19 + Vite
 - **State Management & Routing:** React Router v7
 - **Animations & UI:** Framer Motion, React Icons, React Toastify
-- **Mapping & Real-Time:** Leaflet, React-Leaflet, Socket.io-client
+- **Mapping & Real-Time:** Leaflet, Socket.io-client
 - **HTTP Client:** Axios
 
 ### Backend
 - **Runtime & Framework:** Node.js, Express.js (v5)
-- **Database:** MongoDB with Mongoose ORM
+- **Database:** MongoDB
 - **Real-Time Communication:** Socket.io
 - **Auth & Security:** JWT (JSON Web Tokens), Passport.js (Google OAuth 2.0), Bcrypt.js
 - **File Storage:** Cloudinary & Multer
@@ -132,13 +131,6 @@ npm install
 npm run dev
 ```
 Frontend will start at `http://localhost:5173`.
-
----
-
-## 🌐 Live Demo & Deployment Links
-
-- **Live Application:** [https://fodieee.netlify.app/](https://fodieee.netlify.app/)
-- **API Endpoint:** [https://foodie-backend-2bpt.onrender.com](https://foodie-backend-2bpt.onrender.com)
 
 ---
 
